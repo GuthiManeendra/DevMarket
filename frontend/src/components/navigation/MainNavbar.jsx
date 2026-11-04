@@ -47,17 +47,15 @@ function MainNavbar() {
                 <button aria-label="Search" className="dm-btn dm-btn--icon" type="button">
                   <FaSearch aria-hidden="true" />
                 </button>
-                <button aria-label="Wishlist" className="dm-btn dm-btn--icon" type="button">
+                <button aria-label="Wishlist (local preview)" className="dm-btn dm-btn--icon" type="button">
                   <FaHeart aria-hidden="true" />
                 </button>
-                <button aria-label="Cart" className="dm-btn dm-btn--icon" type="button">
-                  <FaShoppingBag aria-hidden="true" />
-                </button>
+                <Link aria-label="Cart" className="dm-btn dm-btn--icon" to="/cart"><FaShoppingBag aria-hidden="true" /></Link>
               </div>
               <Link className="dm-nav-link" to="/login">
                 Login
               </Link>
-              <PrimaryButton>Register</PrimaryButton>
+              <Link to="/register"><PrimaryButton>Get started</PrimaryButton></Link>
             </div>
           </div>
         </div>

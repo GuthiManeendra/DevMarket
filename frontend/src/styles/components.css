@@ -14,19 +14,19 @@
   position: sticky;
   z-index: 20;
   top: 0;
-  border-bottom: 1px solid rgba(39, 51, 77, 0.1);
-  background: rgba(245, 247, 252, 0.86);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(8, 13, 27, 0.86);
   backdrop-filter: blur(1rem);
 }
 
 .dm-navbar .navbar-brand {
-  color: var(--dm-navy-950);
+  color: var(--dm-white);
   font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
 }
 
 .dm-nav-link {
-  color: var(--dm-ink-soft);
+  color: #b7c3d9;
   font-size: 0.875rem;
   font-weight: 600;
 }
@@ -298,9 +298,13 @@
 
 @media (max-width: 991.98px) {
   .dm-navbar .navbar-collapse {
-    background: var(--dm-white);
-    border-top: 1px solid rgba(39, 51, 77, 0.1);
+    background: var(--dm-navy-950);
+    border-top: 1px solid rgba(148, 163, 184, 0.14);
     margin-top: 0.75rem;
     padding-block: 0.75rem;
+  }
+
+  .dm-navbar .navbar-toggler {
+    filter: invert(1);
   }
 }
