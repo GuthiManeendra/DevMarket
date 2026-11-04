@@ -1,0 +1,36 @@
+:root {
+  --dm-navy-950: #080d1b;
+  --dm-navy-900: #0d1428;
+  --dm-surface: #111a30;
+  --dm-blue: #3b82f6;
+  --dm-violet: #8b5cf6;
+  --dm-cyan: #22d3ee;
+  --dm-white: #ffffff;
+  --dm-light: #f5f7fc;
+  --dm-border: #27334d;
+  --dm-muted: #94a3b8;
+  --dm-ink: #17213a;
+  --dm-ink-soft: #52617a;
+  --dm-gradient: linear-gradient(120deg, var(--dm-blue), var(--dm-violet));
+  --dm-gradient-soft: linear-gradient(120deg, rgba(59, 130, 246, 0.16), rgba(139, 92, 246, 0.16));
+  --dm-radius-sm: 0.5rem;
+  --dm-radius-md: 0.875rem;
+  --dm-radius-lg: 1.25rem;
+  --dm-radius-pill: 999px;
+  --dm-shadow-sm: 0 0.5rem 1.25rem rgba(8, 13, 27, 0.08);
+  --dm-shadow-lg: 0 1.5rem 4rem rgba(8, 13, 27, 0.18);
+  --dm-focus-ring: 0 0 0 0.25rem rgba(59, 130, 246, 0.28);
+  --dm-transition: 180ms ease;
+  --dm-container: 1200px;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --dm-light: #080d1b;
+  --dm-white: #111a30;
+  --dm-ink: #f8fafc;
+  --dm-ink-soft: #b7c3d9;
+  --dm-border: #27334d;
+  --dm-shadow-sm: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.22);
+  --dm-shadow-lg: 0 1.5rem 4rem rgba(0, 0, 0, 0.35);
+}
