@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { FaCheck, FaDownload, FaLock } from 'react-icons/fa'
-import { demoProjects } from '../data/demoCatalog'
 import useMarketplace from '../context/useMarketplace'
+import { fetchProject } from '../services/projectService'
 import { Badge, EmptyState, PriceDisplay } from '../components/common/Feedback'
 import { Breadcrumb } from '../components/common/PageHeader'
 import { TechnologyBadge } from '../components/common/ProductTools'
@@ -10,8 +11,14 @@ import SiteShell from '../layouts/SiteShell'
 
 function ProjectDetailsPage() {
   const { id } = useParams()
-  const item = demoProjects.find((project) => project.id === id) || demoProjects[0]
+  const [item, setItem] = useState(null)
+  const [error, setError] = useState('')
   const { addToCart } = useMarketplace()
+  useEffect(() => {
+    fetchProject(id).then(setItem).catch(() => setError('This project is unavailable or has not been published.'))
+  }, [id])
+  if (error) return <SiteShell><main className="dm-section"><div className="dm-container"><EmptyState description={error} title="Project unavailable" /></div></main></SiteShell>
+  if (!item) return <SiteShell><main className="dm-section"><div className="dm-container"><EmptyState description="Loading the published project details." title="Loading project" /></div></main></SiteShell>
   const sections = [
     ['Overview', 'This design preview shows where the product overview will appear once catalog data is connected.'],
     ['Problem statement', 'The complete problem statement will be supplied by the verified product record.'],
@@ -27,7 +34,7 @@ function ProjectDetailsPage() {
           <div className="row g-5 mt-1">
             <div className="col-lg-7">
               <div className="dm-detail-visual"><span className="dm-preview-label">Protected product preview</span><div className="dm-detail-visual__icon">DM</div></div>
-              <div className="d-flex flex-wrap align-items-center gap-2 mt-4"><Badge>{item.category}</Badge>{item.technologies.map((technology) => <TechnologyBadge key={technology}>{technology}</TechnologyBadge>)}</div>
+              <div className="d-flex flex-wrap align-items-center gap-2 mt-4"><Badge>{item.category.name}</Badge>{item.technologies.map((technology) => <TechnologyBadge key={technology}>{technology}</TechnologyBadge>)}</div>
               <h1 className="mt-3">{item.title}</h1>
               <p className="lead dm-muted">{item.description}</p>
               <div className="dm-detail-tabs mt-5">

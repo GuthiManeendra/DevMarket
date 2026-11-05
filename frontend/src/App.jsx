@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import AboutPage from './pages/AboutPage'
 import AuthPages from './pages/AuthPages'
 import CartPage from './pages/CartPage'
+import CheckoutPage from './pages/CheckoutPage'
 import ContactPage from './pages/ContactPage'
 import NotFoundPage from './pages/NotFoundPage'
 import OffersPage from './pages/OffersPage'
@@ -28,6 +29,7 @@ function App() {
           <Route element={<AuthPages />} path="/login" />
           <Route element={<AuthPages />} path="/register" />
           <Route element={<CartPage />} path="/cart" />
+          <Route element={<CheckoutPage />} path="/checkout" />
           <Route element={<NotFoundPage />} path="*" />
         </Routes>
       </BrowserRouter>

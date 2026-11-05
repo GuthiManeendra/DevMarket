@@ -1,35 +1,14 @@
-import {
-  FaBrain,
-  FaCloud,
-  FaCode,
-  FaCubes,
-  FaDatabase,
-  FaJava,
-  FaLock,
-  FaMicrochip,
-  FaPython,
-  FaRobot,
-  FaStackOverflow,
-} from 'react-icons/fa'
+import { useEffect, useState } from 'react'
+import { FaCode } from 'react-icons/fa'
+import { fetchProjectCategories } from '../../services/projectService'
 import SectionHeading from '../common/SectionHeading'
 import CategoryCard from '../cards/CategoryCard'
 
-const categories = [
-  ['Artificial Intelligence', 'Build intelligent systems and practical AI solutions.', FaBrain],
-  ['Machine Learning', 'Explore models, workflows, and applied learning projects.', FaRobot],
-  ['Generative AI', 'Prototype the next wave of creative technology.', FaCubes],
-  ['LLM Applications', 'Create useful products around language models.', FaStackOverflow],
-  ['Python Development', 'Start with versatile, production-minded Python work.', FaPython],
-  ['Java Development', 'Explore robust applications and backend foundations.', FaJava],
-  ['Full Stack Development', 'Ship complete experiences from interface to API.', FaCode],
-  ['React Development', 'Design responsive interfaces that feel considered.', FaCode],
-  ['Data Science', 'Turn data into decisions, insights, and momentum.', FaDatabase],
-  ['Cybersecurity', 'Learn patterns for safer digital systems.', FaLock],
-  ['Internet of Things', 'Connect software to the physical world.', FaMicrochip],
-  ['Cloud Computing', 'Build foundations that are ready to scale.', FaCloud],
-]
-
 function CategorySection() {
+  const [categories, setCategories] = useState([])
+  useEffect(() => {
+    fetchProjectCategories().then((data) => setCategories(data.results || data)).catch(() => setCategories([]))
+  }, [])
   return (
     <section className="dm-section" id="categories">
       <div className="dm-container">
@@ -39,11 +18,11 @@ function CategorySection() {
           title="Explore projects by technology"
         />
         <div className="row g-3">
-          {categories.map(([name, description, Icon]) => (
-            <div className="col-6 col-md-4 col-lg-3" key={name}>
-              <CategoryCard icon={<Icon size={22} />} name={name} description={description} />
+          {categories.length > 0 ? categories.map((category) => (
+            <div className="col-6 col-md-4 col-lg-3" key={category.id}>
+              <CategoryCard icon={<FaCode size={22} />} name={category.name} description={category.description || 'Explore projects in this technology domain.'} />
             </div>
-          ))}
+          )) : <div className="col-12"><div className="dm-card p-4"><p className="dm-muted mb-0">Project categories will appear here when the catalog is available.</p></div></div>}
         </div>
       </div>
     </section>

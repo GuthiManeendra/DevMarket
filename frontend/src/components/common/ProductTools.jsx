@@ -31,7 +31,11 @@ function FilterSidebar({ categories, selectedCategory, onCategoryChange, onClear
       <label className="form-label fw-semibold" htmlFor="category-filter">Category</label>
       <select className="dm-input mb-4" id="category-filter" onChange={(event) => onCategoryChange(event.target.value)} value={selectedCategory}>
         <option value="">All categories</option>
-        {categories.map((category) => <option key={category} value={category}>{category}</option>)}
+        {categories.map((category) => {
+          const value = typeof category === 'string' ? category : category.slug
+          const label = typeof category === 'string' ? category : category.name
+          return <option key={value} value={value}>{label}</option>
+        })}
       </select>
       <label className="form-label fw-semibold" htmlFor="sort-filter">Sort by</label>
       <select className="dm-input" id="sort-filter" onChange={(event) => onSortChange(event.target.value)} value={sort}>

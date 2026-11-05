@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaArrowRight } from 'react-icons/fa'
-import { demoProjects, projectCategories } from '../data/demoCatalog'
+import { fetchPricingConfiguration, fetchProjectCategories, fetchProjects } from '../services/projectService'
 import { PageHeader } from '../components/common/PageHeader'
-import { FilterSidebar, Pagination, ProductGrid, SearchBar } from '../components/common/ProductTools'
+import { ErrorState, FilterSidebar, LoadingSkeleton, Pagination, ProductGrid, SearchBar } from '../components/common/ProductTools'
 import MarketplaceProjectCard from '../components/cards/MarketplaceProjectCard'
 import SiteShell from '../layouts/SiteShell'
 
@@ -11,13 +11,54 @@ function ProjectsPage() {
   const [category, setCategory] = useState('')
   const [sort, setSort] = useState('relevance')
   const [page, setPage] = useState(1)
-  const filteredProjects = useMemo(() => {
-    const result = demoProjects.filter((item) => {
-      const searchable = `${item.title} ${item.category} ${item.description} ${item.technologies.join(' ')}`.toLowerCase()
-      return searchable.includes(query.toLowerCase()) && (!category || item.category === category)
-    })
-    return [...result].sort((a, b) => sort === 'name' ? a.title.localeCompare(b.title) : sort === 'category' ? a.category.localeCompare(b.category) : 0)
-  }, [category, query, sort])
+  const [projects, setProjects] = useState([])
+  const [categories, setCategories] = useState([])
+  const [pagination, setPagination] = useState({ count: 0, next: null, previous: null })
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [pricing, setPricing] = useState(null)
+
+  useEffect(() => {
+    let active = true
+    fetchProjectCategories()
+      .then((categoryData) => {
+        if (!active) return
+        setCategories(categoryData.results || categoryData)
+      })
+      .catch(() => active && setError('Projects are temporarily unavailable. Please try again later.'))
+      .finally(() => active && setLoading(false))
+    return () => { active = false }
+  }, [])
+
+  useEffect(() => {
+    fetchPricingConfiguration().then(setPricing).catch(() => setPricing(null))
+  }, [])
+
+  useEffect(() => {
+    let active = true
+    const timer = setTimeout(() => {
+      setLoading(true)
+      const params = {
+        page,
+        search: query || undefined,
+        category: category || undefined,
+        ordering: sort === 'name' ? 'title' : sort === 'category' ? 'category' : undefined,
+      }
+      fetchProjects(params)
+        .then((data) => {
+          if (!active) return
+          setProjects(data.results || data)
+          setPagination(data)
+          setError('')
+        })
+        .catch(() => active && setError('Projects are temporarily unavailable. Please try again later.'))
+        .finally(() => active && setLoading(false))
+    }, 250)
+    return () => {
+      active = false
+      clearTimeout(timer)
+    }
+  }, [category, page, query, sort])
 
   const clearFilters = () => {
     setQuery('')
@@ -33,12 +74,13 @@ function ProjectsPage() {
       </PageHeader>
       <main className="dm-section pt-4">
         <div className="dm-container">
+          {pricing && <div className="alert alert-info mb-4" role="status">AI projects start at {new Intl.NumberFormat('en-IN', { style: 'currency', currency: pricing.currency || 'INR' }).format(Number(pricing.ai_minimum_price))}.</div>}
           <div className="row g-4">
-            <div className="col-lg-3"><FilterSidebar categories={projectCategories} onCategoryChange={(value) => { setCategory(value); setPage(1) }} onClear={clearFilters} onSortChange={setSort} selectedCategory={category} sort={sort} /></div>
+            <div className="col-lg-3"><FilterSidebar categories={categories} onCategoryChange={(value) => { setCategory(value); setPage(1) }} onClear={clearFilters} onSortChange={setSort} selectedCategory={category} sort={sort} /></div>
             <div className="col-lg-9">
-              <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"><p className="dm-muted mb-0">{filteredProjects.length} design previews available</p><span className="dm-preview-label dm-preview-label--inline">Catalog data will come from Django</span></div>
-              {filteredProjects.length > 0 ? <ProductGrid>{filteredProjects.map((item) => <div className="col-md-6" key={item.id}><MarketplaceProjectCard item={item} /></div>)}</ProductGrid> : <div className="dm-card p-5 text-center"><h2 className="h5">No previews match those filters</h2><p className="dm-muted">Try another search or clear the current filters.</p><button className="dm-btn dm-btn--primary" onClick={clearFilters} type="button">Clear filters <FaArrowRight aria-hidden="true" /></button></div>}
-              <div className="mt-5"><Pagination hasNext={false} onChange={setPage} page={page} /></div>
+              <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"><p className="dm-muted mb-0">{pagination.count || 0} published projects</p><span className="dm-preview-label dm-preview-label--inline">Live catalog</span></div>
+              {loading ? <ProductGrid><div className="col-md-6"><LoadingSkeleton /></div><div className="col-md-6"><LoadingSkeleton /></div></ProductGrid> : error ? <ErrorState message={error} /> : projects.length > 0 ? <ProductGrid>{projects.map((item) => <div className="col-md-6" key={item.id}><MarketplaceProjectCard item={item} /></div>)}</ProductGrid> : <div className="dm-card p-5 text-center"><h2 className="h5">No published projects yet</h2><p className="dm-muted">Try another filter or check back after the first project is published.</p><button className="dm-btn dm-btn--primary" onClick={clearFilters} type="button">Clear filters <FaArrowRight aria-hidden="true" /></button></div>}
+              <div className="mt-5"><Pagination hasNext={Boolean(pagination.next)} onChange={setPage} page={page} /></div>
             </div>
           </div>
         </div>

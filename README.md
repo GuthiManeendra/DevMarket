@@ -1,6 +1,6 @@
 # DevMarket
 
-DevMarket is a digital marketplace for developer projects and professional portfolio products. This repository currently contains **Phase 1 initialization only**: a Vite/React entry screen and a Django REST-ready backend configuration. Product catalogs, authentication, payments, downloads, customization, and administration are intentionally not implemented yet.
+DevMarket is a digital marketplace for developer projects and professional portfolio products. The repository currently contains the initialized frontend, a professional React marketplace interface, and a Django REST backend foundation. Product catalogs, authentication, payments, downloads, customization, and administration are intentionally not connected yet.
 
 ## Technology stack
 
@@ -26,11 +26,19 @@ DevMarket/
 │       └── utils/
 ├── backend/
 │   ├── apps/
+│   │   ├── core/
+│   │   ├── orders/
+│   │   ├── payments/
+│   │   ├── portfolios/
+│   │   ├── products/
+│   │   └── users/
 │   ├── config/
 │   ├── .venv/
 │   ├── manage.py
 │   └── requirements.txt
 ├── .env.example
+├── docs/
+│   └── backend-setup.md
 └── README.md
 ```
 
@@ -61,6 +69,7 @@ py -3 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 python manage.py check
+python manage.py migrate
 python manage.py runserver
 ```
 
@@ -74,13 +83,15 @@ If PowerShell script execution blocks activation, use the environment directly:
 
 ## MySQL configuration
 
-1. Open MySQL Workbench and connect to your local MySQL Server.
-2. Open a new SQL tab and run `CREATE DATABASE devmarket CHARACTER SET utf8mb4;`.
-3. Copy the root `.env.example` to `.env`.
-4. Replace the database placeholders with your local MySQL database name, username, password, host, and port.
-5. Do not commit `.env`; it is excluded by `.gitignore`.
+Follow [docs/backend-setup.md](docs/backend-setup.md). Create the `devmarket_db` database in MySQL Workbench, copy `.env.example` to `.env`, and enter your actual MySQL username and password. The health endpoint at `http://127.0.0.1:8000/api/health/` reports whether Django can actually connect.
 
-Phase 1 does not claim database connectivity. A real connection should be tested after MySQL is running and the environment variables contain valid credentials.
+## Backend health API
+
+```text
+GET http://127.0.0.1:8000/api/health/
+```
+
+The endpoint returns `database: "connected"` only after Django successfully opens the configured database connection. It returns HTTP 503 when the database is unavailable.
 
 ## Troubleshooting
 
