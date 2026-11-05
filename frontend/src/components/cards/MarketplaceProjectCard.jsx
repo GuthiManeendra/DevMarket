@@ -13,9 +13,9 @@ function MarketplaceProjectCard({ item }) {
     <article className="dm-card dm-market-card h-100">
       <div className="dm-card__media"><FaCode aria-hidden="true" className="text-primary" size={30} /><span className="dm-preview-label">Design preview</span></div>
       <div className="dm-card__body d-flex flex-column">
-        <div className="d-flex align-items-center justify-content-between gap-2 mb-3"><Badge>{item.category}</Badge><WishlistButton active={inWishlist} onClick={() => toggleWishlist(item)} /></div>
+        <div className="d-flex align-items-center justify-content-between gap-2 mb-3"><Badge>{item.category.name || item.category}</Badge><WishlistButton active={inWishlist} onClick={() => toggleWishlist(item)} /></div>
         <h2 className="h5">{item.title}</h2>
-        <p className="dm-muted small">{item.description}</p>
+        <p className="dm-muted small">{item.short_description || item.description}</p>
         <div className="d-flex flex-wrap gap-1 mb-4">{item.technologies.map((technology) => <TechnologyBadge key={technology}>{technology}</TechnologyBadge>)}</div>
         <div className="d-flex align-items-center justify-content-between gap-2 mt-auto">
           <PriceDisplay />

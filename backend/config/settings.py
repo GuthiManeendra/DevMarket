@@ -47,6 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'apps.core',
+    'apps.products',
+    'apps.pricing',
+    'apps.portfolios',
+    'apps.cart',
+    'apps.orders',
+    'apps.payments',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +95,7 @@ if DB_ENGINE == 'django.db.backends.mysql':
     DATABASES = {
         'default': {
             'ENGINE': DB_ENGINE,
-            'NAME': os.getenv('DB_NAME', 'devmarket'),
+            'NAME': os.getenv('DB_NAME', 'devmarket_db'),
             'USER': os.getenv('DB_USER', ''),
             'PASSWORD': os.getenv('DB_PASSWORD', ''),
             'HOST': os.getenv('DB_HOST', '127.0.0.1'),
@@ -140,14 +147,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
-REST_FRAMEWORK = {}
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 12,
+}
 
 CORS_ALLOWED_ORIGINS = [
     origin.strip()
     for origin in os.getenv(
         'CORS_ALLOWED_ORIGINS',
-        'http://localhost:5173,http://127.0.0.1:5173',
+        'http://localhost:5173,http://127.0.0.1:5173' if DEBUG else '',
     ).split(',')
     if origin.strip()
 ]
@@ -161,3 +179,22 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+
+# Razorpay Configuration
+RAZORPAY_MODE = os.getenv('RAZORPAY_MODE', 'test').lower()
+
+# Test mode credentials
+RAZORPAY_TEST_KEY_ID = os.getenv('RAZORPAY_TEST_KEY_ID', '')
+RAZORPAY_TEST_KEY_SECRET = os.getenv('RAZORPAY_TEST_KEY_SECRET', '')
+RAZORPAY_TEST_WEBHOOK_SECRET = os.getenv('RAZORPAY_TEST_WEBHOOK_SECRET', '')
+
+# Live mode credentials
+RAZORPAY_LIVE_KEY_ID = os.getenv('RAZORPAY_LIVE_KEY_ID', '')
+RAZORPAY_LIVE_KEY_SECRET = os.getenv('RAZORPAY_LIVE_KEY_SECRET', '')
+RAZORPAY_LIVE_WEBHOOK_SECRET = os.getenv('RAZORPAY_LIVE_WEBHOOK_SECRET', '')
+
+# Generic environment variables (default to test mode fallbacks)
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', RAZORPAY_TEST_KEY_ID)
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET', RAZORPAY_TEST_KEY_SECRET)
+RAZORPAY_WEBHOOK_SECRET = os.getenv('RAZORPAY_WEBHOOK_SECRET', RAZORPAY_TEST_WEBHOOK_SECRET)

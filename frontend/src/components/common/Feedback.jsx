@@ -1,4 +1,5 @@
 import { FaCircleNotch, FaRegFolderOpen, FaStar } from 'react-icons/fa'
+import { formatInr } from '../../utils/currency'
 
 function Badge({ children }) {
   return <span className="dm-badge">{children}</span>
@@ -32,8 +33,8 @@ function RatingDisplay({ rating = 5, count }) {
   )
 }
 
-function PriceDisplay({ amount = '—', currency = '₹' }) {
-  return <span className="dm-price">{amount === '—' ? amount : `${currency}${amount}`}</span>
+function PriceDisplay({ amount = '—' }) {
+  return <span className="dm-price">{formatInr(amount)}</span>
 }
 
 function SpinnerIcon() {
