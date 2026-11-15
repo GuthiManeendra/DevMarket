@@ -179,17 +179,20 @@ if DATABASE_URL:
     try:
         import dj_database_url
         DATABASES = {
-            'default': dj_database_url.config(
-                default=DATABASE_URL,
-                conn_max_age=600,
-                conn_health_checks=True,
-            )
+            'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
         }
-    except ImportError:
+    except Exception:
+        from urllib.parse import urlparse
+        u = urlparse(DATABASE_URL)
         DATABASES = {
             'default': {
-                'ENGINE': DB_ENGINE,
-                'NAME': BASE_DIR / 'db.sqlite3',
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': u.path.lstrip('/'),
+                'USER': u.username or '',
+                'PASSWORD': u.password or '',
+                'HOST': u.hostname or '',
+                'PORT': u.port or 5432,
+                'CONN_MAX_AGE': 600,
             }
         }
 elif DB_ENGINE == 'django.db.backends.mysql':
