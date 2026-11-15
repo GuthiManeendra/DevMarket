@@ -19,7 +19,7 @@ class Order(models.Model):
 
     order_number = models.CharField(max_length=40, unique=True, default=generate_order_number)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name='orders')
-    guest_token = models.CharField(max_length=128, blank=True)
+    guest_token = models.CharField(max_length=128, blank=True, null=True)
     idempotency_key = models.CharField(max_length=128, unique=True)
     currency = models.CharField(max_length=3, default='INR')
     subtotal = models.DecimalField(max_digits=12, decimal_places=2)

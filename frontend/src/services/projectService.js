@@ -51,46 +51,59 @@ export function getGuestToken() {
   return token
 }
 
-function guestHeaders() {
-  return { 'X-Guest-Token': getGuestToken() }
+function requestHeaders() {
+  const headers = {}
+  // If authenticated, the api interceptor adds Authorization header automatically.
+  // Only add X-Guest-Token for unauthenticated users.
+  const token = window.localStorage.getItem('devmarket_auth_token')
+  if (!token) {
+    headers['X-Guest-Token'] = getGuestToken()
+  }
+  return headers
 }
 
 export async function fetchCart() {
-  const response = await api.get('/cart/', { headers: guestHeaders() })
+  const response = await api.get('/cart/', { headers: requestHeaders() })
   return response.data
 }
 
 export async function removeCartItem(itemId) {
-  await api.delete(`/cart/items/${itemId}/`, { headers: guestHeaders() })
+  await api.delete(`/cart/items/${itemId}/`, { headers: requestHeaders() })
   return fetchCart()
 }
 
 export async function clearCart() {
-  await api.delete('/cart/clear/', { headers: guestHeaders() })
+  await api.delete('/cart/clear/', { headers: requestHeaders() })
   return fetchCart()
 }
 
-export async function fetchCheckoutQuote(couponCode = '') {
-  const response = await api.post('/checkout/quote/', { coupon_code: couponCode }, { headers: guestHeaders() })
+export async function fetchCheckoutQuote(couponCode = '', itemIds = null) {
+  const payload = { coupon_code: couponCode }
+  if (itemIds?.length) {
+    payload.item_ids = itemIds
+  }
+  const response = await api.post('/checkout/quote/', payload, { headers: requestHeaders() })
   return response.data
 }
 
 export async function addCartItem(item) {
-  const response = await api.post('/cart/items/', item, { headers: guestHeaders() })
+  const response = await api.post('/cart/items/', item, { headers: requestHeaders() })
   return response.data
 }
 
-export async function createCheckoutOrder(couponCode = '', idempotencyKey = '') {
+export async function createCheckoutOrder(couponCode = '', idempotencyKey = '', itemIds = null) {
   const key = idempotencyKey || crypto.randomUUID()
+  const payload = { coupon_code: couponCode, idempotency_key: key }
+  if (itemIds?.length) {
+    payload.item_ids = itemIds
+  }
   const response = await api.post(
     '/checkout/create-order/',
-    { coupon_code: couponCode, idempotency_key: key },
+    payload,
     {
-      headers: {
-        ...guestHeaders(),
-        'Idempotency-Key': key,
-      },
-    }
+      headers: requestHeaders(),
+      ...guestTokenKey && { 'Idempotency-Key': key },
+    },
   )
   return response.data
 }
@@ -101,11 +114,9 @@ export async function createPaymentOrder(orderNumber, idempotencyKey = '') {
     '/payments/create/',
     { order_number: orderNumber },
     {
-      headers: {
-        ...guestHeaders(),
-        'Idempotency-Key': key,
-      },
-    }
+      headers: requestHeaders(),
+      ...guestTokenKey && { 'Idempotency-Key': key },
+    },
   )
   return response.data
 }
@@ -114,7 +125,7 @@ export async function verifyPayment(paymentData) {
   const response = await api.post(
     '/payments/verify/',
     paymentData,
-    { headers: guestHeaders() }
+    { headers: requestHeaders() }
   )
   return response.data
 }
@@ -122,7 +133,12 @@ export async function verifyPayment(paymentData) {
 export async function fetchPaymentStatus(orderNumber) {
   const response = await api.get(
     `/payments/status/${orderNumber}/`,
-    { headers: guestHeaders() }
+    { headers: requestHeaders() }
   )
+  return response.data
+}
+
+export async function fetchMyOrders() {
+  const response = await api.get('/orders/')
   return response.data
 }

@@ -1,80 +1,145 @@
+
 from rest_framework import serializers
 
-from .models import PortfolioCategory, PortfolioCustomizationOption, PortfolioPreview, PortfolioTemplate
-from .services import public_portfolio_queryset
+from .models import (
+    PortfolioCategory,
+    PortfolioTemplate,
+    PortfolioPreview,
+    PortfolioCustomizationOption,
+)
 
 
 class PortfolioCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = PortfolioCategory
-        fields = ['id', 'name', 'slug', 'description', 'portfolio_type', 'image', 'icon', 'display_order']
+        fields = '__all__'
 
 
 class PortfolioPreviewSerializer(serializers.ModelSerializer):
+    thumbnail_image = serializers.SerializerMethodField()
+
     class Meta:
         model = PortfolioPreview
-        fields = ['id', 'preview_type', 'preview_url', 'thumbnail_image', 'description', 'display_order']
+        fields = [
+            'id',
+            'preview_type',
+            'preview_url',
+            'thumbnail_image',
+            'description',
+            'display_order',
+        ]
+
+    def get_thumbnail_image(self, obj):
+        if not obj.thumbnail_image:
+            return None
+
+        request = self.context.get('request')
+        image_url = obj.thumbnail_image.url
+
+        if request:
+            return request.build_absolute_uri(image_url)
+
+        return image_url
 
 
 class PortfolioCustomizationOptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = PortfolioCustomizationOption
-        fields = [
-            'id', 'option_name', 'description', 'option_type', 'additional_price',
-            'is_required', 'is_available',
-        ]
+        fields = '__all__'
 
 
 class PortfolioListSerializer(serializers.ModelSerializer):
     category = PortfolioCategorySerializer(read_only=True)
+    previews = serializers.SerializerMethodField()
 
     class Meta:
         model = PortfolioTemplate
         fields = [
-            'id', 'title', 'slug', 'short_description', 'category', 'portfolio_type',
-            'frontend_technology', 'frameworks', 'libraries', 'animation_technology',
-            'base_price', 'compare_at_price', 'currency', 'is_featured',
-            'is_bestseller', 'responsive_support', 'dark_mode_support', 'created_at',
-        ]
-
-
-class PortfolioDetailSerializer(PortfolioListSerializer):
-    previews = serializers.SerializerMethodField()
-    customization_options = serializers.SerializerMethodField()
-
-    class Meta(PortfolioListSerializer.Meta):
-        fields = PortfolioListSerializer.Meta.fields + [
-            'full_description', 'template_code', 'version', 'difficulty_level',
-            'backend_technology', 'programming_languages', 'supported_devices',
-            'features', 'included_sections', 'seo_support', 'documentation_included',
-            'previews', 'customization_options', 'updated_at',
+            'id',
+            'title',
+            'slug',
+            'short_description',
+            'category',
+            'portfolio_type',
+            'frontend_technology',
+            'frameworks',
+            'libraries',
+            'animation_technology',
+            'base_price',
+            'currency',
+            'is_featured',
+            'is_bestseller',
+            'responsive_support',
+            'dark_mode_support',
+            'created_at',
+            'previews',
         ]
 
     def get_previews(self, obj):
+        previews = obj.previews.filter(
+            is_active=True
+        ).order_by('display_order')
+
         return PortfolioPreviewSerializer(
-            obj.previews.filter(is_active=True),
+            previews,
+            many=True,
+            context=self.context,
+        ).data
+
+
+class PortfolioDetailSerializer(serializers.ModelSerializer):
+    category = PortfolioCategorySerializer(read_only=True)
+    previews = serializers.SerializerMethodField()
+    customization_options = serializers.SerializerMethodField()
+
+    class Meta:
+        model = PortfolioTemplate
+        fields = '__all__'
+
+    def get_previews(self, obj):
+        previews = obj.previews.filter(
+            is_active=True
+        ).order_by('display_order')
+
+        return PortfolioPreviewSerializer(
+            previews,
             many=True,
             context=self.context,
         ).data
 
     def get_customization_options(self, obj):
+        options = obj.customization_services.all()
+
         return PortfolioCustomizationOptionSerializer(
-            obj.customization_services.filter(is_available=True),
+            options,
             many=True,
             context=self.context,
         ).data
 
 
 class PortfolioWriteSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = PortfolioTemplate
         fields = '__all__'
-        read_only_fields = ['id', 'created_at', 'updated_at']
 
     def validate(self, attrs):
-        instance = self.instance
-        category = attrs.get('category', getattr(instance, 'category', None))
-        portfolio_type = attrs.get('portfolio_type', getattr(instance, 'portfolio_type', None))
-        if category and portfolio_type and category.portfolio_type != portfolio_type:
-            raise serializers.ValidationError({'portfolio_type': 'Portfolio type must match the selected category.'})
+        category = attrs.get(
+            'category',
+            self.instance.category if self.instance else None
+        )
+
+        portfolio_type = attrs.get(
+            'portfolio_type',
+            self.instance.portfolio_type if self.instance else None
+        )
+
+        if category and portfolio_type:
+            if category.portfolio_type != portfolio_type:
+                raise serializers.ValidationError({
+                    'category': (
+                        'Category type must match portfolio type.'
+                    )
+                })
+
         return attrs

@@ -18,11 +18,13 @@ from .services import (
     PaymentVerificationError,
     create_razorpay_order_for_devmarket_order,
     verify_and_settle_payment,
+    inr_to_paise,
 )
 from .webhooks import (
     WebhookVerificationError,
     process_razorpay_webhook_event,
 )
+from .config import get_razorpay_credentials
 
 logger = logging.getLogger(__name__)
 
@@ -60,6 +62,32 @@ class RazorpayCreateOrderView(APIView):
             request.headers.get('Idempotency-Key')
             or request.data.get('idempotency_key', '')
         )
+
+        # Check for existing payment with same idempotency key to prevent duplicate requests
+        if idempotency_key:
+            existing_payment = Payment.objects.filter(
+                order=order,
+                idempotency_key=idempotency_key
+            ).exclude(
+                status__in=['failed', 'captured']
+            ).first()
+            if existing_payment and existing_payment.gateway_order_id:
+                key_id, _, _ = get_razorpay_credentials()
+                checkout_payload = {
+                    'key_id': key_id,
+                    'razorpay_order_id': existing_payment.gateway_order_id,
+                    'amount': inr_to_paise(order.total_amount),
+                    'currency': order.currency,
+                    'devmarket_order_number': order.order_number,
+                    'customer': {
+                        'name': (
+                            f'{order.user.first_name} {order.user.last_name}'.strip()
+                            or order.user.username
+                        ) if order.user else '',
+                        'email': order.user.email if order.user else '',
+                    },
+                }
+                return Response(checkout_payload, status=status.HTTP_200_OK)
 
         try:
             payment, checkout_payload = create_razorpay_order_for_devmarket_order(

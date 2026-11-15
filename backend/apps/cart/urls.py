@@ -1,6 +1,17 @@
+
 from django.urls import path
 
-from .views import CartClearView, CartItemCreateView, CartItemDetailView, CartMergeView, CartView, CouponValidateView, CreateOrderView, QuoteView
+from .views import (
+    ActiveOffersView,
+    CartClearView,
+    CartItemCreateView,
+    CartItemDetailView,
+    CartMergeView,
+    CartView,
+    CouponValidateView,
+    CreateOrderView,
+    QuoteView,
+)
 
 urlpatterns = [
     path('', CartView.as_view(), name='cart'),
@@ -11,4 +22,5 @@ urlpatterns = [
     path('checkout/quote/', QuoteView.as_view(), name='checkout-quote'),
     path('checkout/create-order/', CreateOrderView.as_view(), name='checkout-create-order'),
     path('coupons/validate/', CouponValidateView.as_view(), name='coupon-validate'),
+    path('offers/', ActiveOffersView.as_view(), name='active-offers'),
 ]

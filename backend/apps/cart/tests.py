@@ -100,11 +100,13 @@ class CartApiTests(APITestCase):
         other = self.client.get('/api/cart/', HTTP_X_GUEST_TOKEN='guest-b')
         self.assertEqual(other.data['items'], [])
 
-    def test_duplicate_product_is_rejected(self):
+    def test_duplicate_product_is_idempotent(self):
         headers = {'HTTP_X_GUEST_TOKEN': 'guest-duplicate'}
-        self.client.post('/api/cart/items/', {'project_id': self.project.id}, format='json', **headers)
+        first = self.client.post('/api/cart/items/', {'project_id': self.project.id}, format='json', **headers)
+        self.assertEqual(first.status_code, status.HTTP_201_CREATED)
         response = self.client.post('/api/cart/items/', {'project_id': self.project.id}, format='json', **headers)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['id'], first.data['id'])
 
     def test_order_requires_idempotency_key(self):
         response = self.client.post('/api/checkout/create-order/', {}, format='json')
