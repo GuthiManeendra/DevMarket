@@ -2,14 +2,16 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
   min-width: 320px;
-  background: var(--dm-light);
+  background: var(--dm-bg-base);
   color: var(--dm-ink);
   font-family: "Inter", system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -18,10 +20,14 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--dm-navy-950);
+  color: var(--dm-heading);
   font-family: "Space Grotesk", "Inter", sans-serif;
   font-weight: 700;
   letter-spacing: -0.035em;
+}
+
+p {
+  color: var(--dm-ink-soft);
 }
 
 a {

@@ -24,7 +24,8 @@ class ProjectListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = [
-            'id', 'title', 'slug', 'short_description', 'category',
+            'id', 'title', 'slug', 'short_description', 'seo_title',
+            'seo_description', 'category',
             'project_type', 'difficulty_level', 'programming_languages',
             'technologies', 'frameworks', 'price', 'compare_at_price',
             'discount_percentage', 'is_featured', 'is_bestseller',

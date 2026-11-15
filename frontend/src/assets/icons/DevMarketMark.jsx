@@ -12,7 +12,7 @@ function DevMarketMark({ className = "" }) {
           <stop offset="1" stopColor="#8B5CF6" />
         </linearGradient>
       </defs>
-      <rect fill="#080D1B" height="40" rx="12" width="40" />
+      <rect fill="#111a30" height="38" rx="11" stroke="rgba(255, 255, 255, 0.14)" strokeWidth="1.5" width="38" x="1" y="1" />
       <path
         d="m16 13-7 7 7 7M24 13l7 7-7 7M22 10l-4 20"
         stroke="url(#devmarket-mark-gradient)"

@@ -58,6 +58,8 @@ class PortfolioTemplate(models.Model):
     title = models.CharField(max_length=220)
     slug = models.SlugField(max_length=240, unique=True)
     short_description = models.CharField(max_length=320)
+    seo_title = models.CharField(max_length=160, blank=True)
+    seo_description = models.CharField(max_length=320, blank=True)
     full_description = models.TextField()
     category = models.ForeignKey(PortfolioCategory, on_delete=models.PROTECT, related_name='templates')
     portfolio_type = models.CharField(max_length=30, choices=PortfolioType.choices)

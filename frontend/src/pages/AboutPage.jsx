@@ -2,10 +2,18 @@ import { FaArrowRight, FaCompass, FaLightbulb, FaUsers } from 'react-icons/fa'
 import { PageHeader } from '../components/common/PageHeader'
 import SectionHeading from '../components/common/SectionHeading'
 import SiteShell from '../layouts/SiteShell'
+import SEO from '../components/seo/SEO'
+import { breadcrumbJsonLd } from '../utils/seo'
 
 function AboutPage() {
   return (
     <SiteShell>
+      <SEO
+        description="Learn about DevMarket — a digital marketplace helping students, developers, and technology enthusiasts access practical software projects and professional developer portfolio templates."
+        jsonLd={breadcrumbJsonLd([{ label: 'Home', to: '/' }, { label: 'About us', to: '/about' }])}
+        path="/about"
+        title="About DevMarket"
+      />
       <PageHeader breadcrumbs={[{ label: 'About us' }]} description="A digital marketplace designed to help students, developers, and technology enthusiasts access practical software projects and professional developer portfolios." eyebrow="The DevMarket point of view" title="A better starting point for your next build" />
       <main>
         <section className="dm-section pt-4"><div className="dm-container"><div className="dm-about-story"><div><div className="dm-eyebrow">About DevMarket</div><h2>Make progress feel possible.</h2></div><p>DevMarket brings projects, portfolios, and practical guidance into one considered experience. It is designed to help people move from an idea to a stronger next step without losing sight of craft.</p></div></div></section>

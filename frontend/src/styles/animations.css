@@ -1,0 +1,401 @@
+/* ============================================
+   GLOBAL ANIMATIONS CSS
+   Performance-optimized CSS animations
+   ============================================ */
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   SPINNER LOADER
+   ============================================ */
+.dm-spinner {
+  display: inline-block;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: currentColor;
+  border-radius: 50%;
+}
+
+/* ============================================
+   SKELETON LOADING
+   ============================================ */
+.dm-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--dm-radius-sm);
+}
+
+/* ============================================
+   PAGE LOADER
+   ============================================ */
+.dm-page-loader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dm-bg-base);
+  z-index: 9999;
+}
+
+.dm-page-loader__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dm-page-loader__text {
+  color: var(--dm-ink-soft);
+  font-size: 0.875rem;
+}
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+.dm-toast-container {
+  position: fixed;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 350px;
+}
+
+.dm-toast-container--top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.dm-toast-container--top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.dm-toast-container--bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.dm-toast-container--bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.dm-toast-container--top-center {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dm-toast-container--bottom-center {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dm-toast {
+  padding: 1rem 1.25rem;
+  border-radius: var(--dm-radius-md);
+  color: white;
+  font-size: 0.875rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* ============================================
+   MODAL BACKDROP
+   ============================================ */
+.dm-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.dm-modal-content {
+  background: var(--dm-surface);
+  border: 1px solid var(--dm-border-subtle);
+  border-radius: var(--dm-radius-lg);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+/* ============================================
+   SLIDE-IN PANEL
+   ============================================ */
+.dm-panel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.dm-panel {
+  position: fixed;
+  background: var(--dm-surface);
+  border: 1px solid var(--dm-border-subtle);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  max-width: 90vw;
+  max-height: 100vh;
+  overflow: auto;
+}
+
+.dm-panel--right {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 400px;
+}
+
+.dm-panel--left {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 400px;
+}
+
+.dm-panel--top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  max-height: 80vh;
+}
+
+.dm-panel--bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  max-height: 80vh;
+}
+
+/* ============================================
+   DROPDOWN MENU
+   ============================================ */
+.dm-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: var(--dm-surface);
+  border: 1px solid var(--dm-border-subtle);
+  border-radius: var(--dm-radius-md);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0;
+  z-index: 100;
+}
+
+.dm-dropdown-menu a,
+.dm-dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--dm-ink);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.dm-dropdown-menu a:hover,
+.dm-dropdown-menu button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--dm-white);
+}
+
+/* ============================================
+   CARD HOVER EFFECTS
+   ============================================ */
+.dm-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.dm-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Image zoom effect */
+.dm-card img {
+  transition: transform 0.5s ease;
+}
+
+.dm-card:hover img {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   BUTTON ANIMATIONS
+   ============================================ */
+.dm-btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  will-change: transform;
+}
+
+.dm-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.dm-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.dm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   FADE IN ANIMATION
+   ============================================ */
+@keyframes dm-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.dm-fade-in {
+  animation: dm-fade-in 0.5s ease forwards;
+}
+
+/* ============================================
+   SLIDE UP ANIMATION
+   ============================================ */
+@keyframes dm-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dm-slide-up {
+  animation: dm-slide-up 0.5s ease forwards;
+}
+
+/* ============================================
+   SCALE IN ANIMATION
+   ============================================ */
+@keyframes dm-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.dm-scale-in {
+  animation: dm-scale-in 0.3s ease forwards;
+}
+
+/* ============================================
+   RISE ANIMATION
+   ============================================ */
+@keyframes dm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dm-rise {
+  animation: dm-rise 0.6s ease forwards;
+}
+
+/* ============================================
+   SHIMMER EFFECT
+   ============================================ */
+@keyframes dm-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.dm-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: dm-shimmer 2s infinite;
+}
+
+/* ============================================
+   PULSE GLOW
+   ============================================ */
+@keyframes dm-pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.dm-pulse-glow {
+  animation: dm-pulse-glow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 767.98px) {
+  .dm-panel--right,
+  .dm-panel--left {
+    width: 100%;
+  }
+
+  .dm-toast-container {
+    max-width: calc(100vw - 40px);
+  }
+}
+
+/* ============================================
+   GPU ACCELERATION HELPERS
+   ============================================ */
+.dm-gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}

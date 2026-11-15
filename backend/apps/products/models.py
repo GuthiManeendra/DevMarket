@@ -49,6 +49,8 @@ class Project(TimeStampedModel):
     title = models.CharField(max_length=220)
     slug = models.SlugField(max_length=240, unique=True)
     short_description = models.CharField(max_length=320)
+    seo_title = models.CharField(max_length=160, blank=True)
+    seo_description = models.CharField(max_length=320, blank=True)
     description = models.TextField()
     category = models.ForeignKey(ProjectCategory, on_delete=models.PROTECT, related_name='projects')
     project_type = models.CharField(max_length=30, choices=ProjectType.choices)

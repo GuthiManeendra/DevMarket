@@ -4,6 +4,8 @@ import { PageHeader } from '../components/common/PageHeader'
 import { ErrorState, LoadingSkeleton, Pagination, ProductGrid, SearchBar } from '../components/common/ProductTools'
 import MarketplacePortfolioCard from '../components/cards/MarketplacePortfolioCard'
 import SiteShell from '../layouts/SiteShell'
+import SEO from '../components/seo/SEO'
+import { breadcrumbJsonLd } from '../utils/seo'
 
 function PortfoliosPage() {
   const [query, setQuery] = useState('')
@@ -61,6 +63,13 @@ function PortfoliosPage() {
 
   return (
     <SiteShell>
+      <SEO
+        description="Browse professional and premium animated portfolio templates for developers — React, Next.js, Vue and more. Preview live demos and buy ready-made developer portfolios."
+        jsonLd={breadcrumbJsonLd([{ label: 'Home', to: '/' }, { label: 'Portfolio store', to: '/portfolios' }])}
+        keywords="portfolio template, developer portfolio, React portfolio, animated portfolio"
+        path="/portfolios"
+        title="Developer Portfolio Templates"
+      />
       <PageHeader breadcrumbs={[{ label: 'Portfolio store' }]} description="Explore professional and premium animated portfolio templates designed for developers and technology professionals." eyebrow="The portfolio store" title="Build a portfolio that gets noticed">
         <SearchBar onChange={(value) => { setQuery(value); setPage(1) }} onClear={() => setQuery('')} onSubmit={(event) => event.preventDefault()} value={query} />
       </PageHeader>
@@ -69,22 +78,79 @@ function PortfoliosPage() {
           <div className="row g-4">
             <div className="col-lg-3">
               <aside className="dm-filter-sidebar">
-                <div className="d-flex justify-content-between align-items-center mb-4"><h2 className="h5 mb-0">Filters</h2><button className="dm-text-button" onClick={clearFilters} type="button">Clear all</button></div>
-                <label className="form-label fw-semibold" htmlFor="portfolio-type">Portfolio type</label>
-                <select className="dm-input mb-3" id="portfolio-type" onChange={(event) => { setPortfolioType(event.target.value); setPage(1) }} value={portfolioType}><option value="">All types</option><option value="standard">Standard Professional</option><option value="premium_animated">Premium Animated</option></select>
-                <label className="form-label fw-semibold" htmlFor="portfolio-category">Category</label>
-                <select className="dm-input mb-3" id="portfolio-category" onChange={(event) => { setCategory(event.target.value); setPage(1) }} value={category}><option value="">All categories</option>{categories.map((item) => <option key={item.slug} value={item.slug}>{item.name}</option>)}</select>
-                <label className="form-label fw-semibold" htmlFor="portfolio-technology">Technology</label>
-                <input className="dm-input mb-3" id="portfolio-technology" onChange={(event) => { setTechnology(event.target.value); setPage(1) }} placeholder="React, GSAP..." value={technology} />
-                <div className="row g-2 mb-3"><div className="col-6"><input className="dm-input" min="0" onChange={(event) => setMinPrice(event.target.value)} placeholder="Min INR" type="number" value={minPrice} /></div><div className="col-6"><input className="dm-input" min="0" onChange={(event) => setMaxPrice(event.target.value)} placeholder="Max INR" type="number" value={maxPrice} /></div></div>
-                <label className="form-label fw-semibold" htmlFor="portfolio-sort">Sort by</label>
-                <select className="dm-input" id="portfolio-sort" onChange={(event) => setSort(event.target.value)} value={sort}><option value="-created_at">Newest</option><option value="base_price">Price: low to high</option><option value="-base_price">Price: high to low</option><option value="title">Title</option></select>
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                  <h2 className="h5 mb-0">Filters</h2>
+                  <button className="dm-text-button" onClick={clearFilters} type="button">Clear all</button>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-semibold" htmlFor="portfolio-type">Portfolio type</label>
+                  <select className="dm-input w-100" id="portfolio-type" onChange={(event) => { setPortfolioType(event.target.value); setPage(1) }} value={portfolioType}>
+                    <option value="">All types</option>
+                    <option value="standard">Standard Professional</option>
+                    <option value="premium_animated">Premium Animated</option>
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-semibold" htmlFor="portfolio-category">Category</label>
+                  <select className="dm-input w-100" id="portfolio-category" onChange={(event) => { setCategory(event.target.value); setPage(1) }} value={category}>
+                    <option value="">All categories</option>
+                    {categories.map((item) => <option key={item.slug} value={item.slug}>{item.name}</option>)}
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-semibold" htmlFor="portfolio-technology">Technology</label>
+                  <input className="dm-input w-100" id="portfolio-technology" onChange={(event) => { setTechnology(event.target.value); setPage(1) }} placeholder="React, GSAP..." value={technology} />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-semibold">Price Range (₹)</label>
+                  <div className="row g-2">
+                    <div className="col-6">
+                      <input className="dm-input w-100" min="0" onChange={(event) => setMinPrice(event.target.value)} placeholder="Min" type="number" value={minPrice} />
+                    </div>
+                    <div className="col-6">
+                      <input className="dm-input w-100" min="0" onChange={(event) => setMaxPrice(event.target.value)} placeholder="Max" type="number" value={maxPrice} />
+                    </div>
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-semibold" htmlFor="portfolio-sort">Sort by</label>
+                  <select className="dm-input w-100" id="portfolio-sort" onChange={(event) => setSort(event.target.value)} value={sort}>
+                    <option value="-created_at">Newest</option>
+                    <option value="base_price">Price: low to high</option>
+                    <option value="-base_price">Price: high to low</option>
+                    <option value="title">Title</option>
+                  </select>
+                </div>
               </aside>
             </div>
             <div className="col-lg-9">
-              <p className="dm-muted mb-4">{pagination.count || 0} published portfolios</p>
-              {loading ? <ProductGrid><div className="col-md-6"><LoadingSkeleton /></div><div className="col-md-6"><LoadingSkeleton /></div></ProductGrid> : error ? <ErrorState message={error} /> : items.length ? <ProductGrid>{items.map((item) => <div className="col-md-6" key={item.id}><MarketplacePortfolioCard item={item} /></div>)}</ProductGrid> : <div className="dm-card p-5 text-center"><h2 className="h5">No published portfolios yet</h2><p className="dm-muted mb-0">Portfolio templates will appear here after they are published from Django Admin.</p></div>}
-              <div className="mt-5"><Pagination hasNext={Boolean(pagination.next)} onChange={setPage} page={page} /></div>
+              <div className="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-secondary border-opacity-25">
+                <p className="dm-muted mb-0">{pagination.count || 0} published portfolios</p>
+              </div>
+              {loading ? (
+                <ProductGrid>
+                  <div className="col-md-6"><LoadingSkeleton /></div>
+                  <div className="col-md-6"><LoadingSkeleton /></div>
+                </ProductGrid>
+              ) : error ? (
+                <ErrorState message={error} />
+              ) : items.length ? (
+                <ProductGrid>
+                  {items.map((item) => (
+                    <div className="col-md-6" key={item.id}>
+                      <MarketplacePortfolioCard item={item} />
+                    </div>
+                  ))}
+                </ProductGrid>
+              ) : (
+                <div className="dm-card p-5 text-center">
+                  <h2 className="h5">No published portfolios yet</h2>
+                  <p className="dm-muted mb-0">Portfolio templates will appear here after they are published from Django Admin.</p>
+                </div>
+              )}
+              <div className="mt-5">
+                <Pagination hasNext={Boolean(pagination.next)} onChange={setPage} page={page} />
+              </div>
             </div>
           </div>
         </div>
