@@ -28,6 +28,14 @@ import ProjectDetailsPage from './pages/ProjectDetailsPage'
 import ProjectsPage from './pages/ProjectsPage'
 import PurchasesPage from './pages/PurchasesPage'
 
+// Route access model (Repohaus):
+//   Public:  /login, /register
+//   Protected (7s anonymous browse, then redirect to /login):
+//     /, /projects, /projects/:id, /portfolios, /portfolios/:id,
+//     /offers, /about, /contact, /cart, /checkout, /purchases, *
+//   Note: the soft-gate is intentional for now — catalog pages are
+//   publicly browsable briefly; checkout/orders still require auth
+//   or a guest token server-side. Do not tighten without UX review.
 // Protect marketplace pages.
 // Visitors can browse for 7 seconds before being redirected to login.
 function ProtectedRoute({ children }) {

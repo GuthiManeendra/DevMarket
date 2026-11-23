@@ -1,24 +1,25 @@
 :root {
   color-scheme: dark;
 
-  /* Backgrounds: Black, Charcoal & Deep Slate */
-  --dm-bg-base: #080d1a;
-  --dm-bg-surface: #111a2e;
-  --dm-bg-surface-elevated: #16223d;
-  --dm-bg-soft: #0c1222;
-  --dm-surface: #111a2e;
+  /* Backgrounds: Deep Ink Navy */
+  --dm-bg-base: #0b0f14;
+  --dm-bg-surface: #121826;
+  --dm-bg-surface-elevated: #1a2438;
+  --dm-bg-soft: #0d1420;
+  --dm-surface: #121826;
   --dm-navy-950: #ffffff; /* For headings previously referencing navy-950 */
-  --dm-navy-900: #0d1428;
-  --dm-light: #080d1a;
+  --dm-navy-900: #0d1420;
+  --dm-light: #0b0f14;
 
-  /* Accent & Brand Colors */
-  --dm-blue: #3b82f6;
-  --dm-violet: #8b5cf6;
+  /* Accent & Brand Colors — Repohaus mint system */
+  --dm-blue: #34e0a1;
+  --dm-mint: #34e0a1;
+  --dm-violet: #8b7cff;
   --dm-cyan: #22d3ee;
   --dm-white: #ffffff;
 
   /* Borders */
-  --dm-border: #1f2d47;
+  --dm-border: #1e293b;
   --dm-border-subtle: rgba(255, 255, 255, 0.08);
 
   /* Typography / Inks */
@@ -28,8 +29,8 @@
   --dm-muted: #94a3b8;
 
   /* Gradients */
-  --dm-gradient: linear-gradient(120deg, var(--dm-blue), var(--dm-violet));
-  --dm-gradient-soft: linear-gradient(120deg, rgba(59, 130, 246, 0.16), rgba(139, 92, 246, 0.16));
+  --dm-gradient: linear-gradient(120deg, var(--dm-mint), var(--dm-violet));
+  --dm-gradient-soft: linear-gradient(120deg, rgba(52, 224, 161, 0.16), rgba(139, 124, 255, 0.16));
 
   /* Radii */
   --dm-radius-sm: 0.5rem;
@@ -40,7 +41,7 @@
   /* Shadows */
   --dm-shadow-sm: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.35);
   --dm-shadow-lg: 0 1.5rem 4rem rgba(0, 0, 0, 0.6);
-  --dm-focus-ring: 0 0 0 0.25rem rgba(59, 130, 246, 0.35);
+  --dm-focus-ring: 0 0 0 0.25rem rgba(52, 224, 161, 0.35);
 
   --dm-transition: 180ms ease;
   --dm-container: 1200px;
@@ -48,18 +49,18 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --dm-bg-base: #080d1a;
-  --dm-bg-surface: #111a2e;
-  --dm-bg-surface-elevated: #16223d;
-  --dm-bg-soft: #0c1222;
-  --dm-surface: #111a2e;
+  --dm-bg-base: #0b0f14;
+  --dm-bg-surface: #121826;
+  --dm-bg-surface-elevated: #1a2438;
+  --dm-bg-soft: #0d1420;
+  --dm-surface: #121826;
   --dm-navy-950: #ffffff;
-  --dm-light: #080d1a;
+  --dm-light: #0b0f14;
   --dm-white: #ffffff;
   --dm-ink: #f1f5f9;
   --dm-ink-soft: #94a3b8;
   --dm-muted: #94a3b8;
-  --dm-border: #1f2d47;
+  --dm-border: #1e293b;
   --dm-border-subtle: rgba(255, 255, 255, 0.08);
   --dm-shadow-sm: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.35);
   --dm-shadow-lg: 0 1.5rem 4rem rgba(0, 0, 0, 0.6);

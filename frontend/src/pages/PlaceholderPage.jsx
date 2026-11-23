@@ -12,7 +12,7 @@ function PlaceholderPage() {
         <div className="dm-container dm-container--narrow text-center">
           <SectionHeading
             align="center"
-            description="This area is part of the DevMarket product roadmap and will be built in a later phase."
+            description="This area is part of the Repohaus product roadmap and will be built in a later phase."
             eyebrow="Coming next"
             title={`${title.charAt(0).toUpperCase()}${title.slice(1)} is being prepared`}
           />

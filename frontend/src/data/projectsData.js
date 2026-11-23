@@ -101,7 +101,7 @@ export const projectsCatalog = [
       'Designing queue-based dashboard UIs with React state management.',
     ],
     icon: FaRobot,
-    accentColor: '#8b5cf6',
+    accentColor: '#8b7cff',
   },
   {
     id: '2',
@@ -155,7 +155,7 @@ export const projectsCatalog = [
       'Building clean data-dense screening interfaces in React.',
     ],
     icon: FaUserTie,
-    accentColor: '#3b82f6',
+    accentColor: '#34e0a1',
   },
   {
     id: '3',
@@ -429,7 +429,7 @@ export const projectsCatalog = [
       'Building rich interactive multi-agent chat interfaces.',
     ],
     icon: FaNetworkWired,
-    accentColor: '#3b82f6',
+    accentColor: '#34e0a1',
   },
   {
     id: '8',
@@ -977,7 +977,7 @@ export const projectsCatalog = [
       'Integrating interactive data calculators in React with Django.',
     ],
     icon: FaHome,
-    accentColor: '#3b82f6',
+    accentColor: '#34e0a1',
   },
   {
     id: '18',
@@ -1251,7 +1251,7 @@ export const projectsCatalog = [
       'Connecting biometric sensors with relational business databases.',
     ],
     icon: FaSmile,
-    accentColor: '#3b82f6',
+    accentColor: '#34e0a1',
   },
   {
     id: '23',
@@ -1359,7 +1359,7 @@ export const projectsCatalog = [
       'Developing accessible human-computer interfaces with React and Web Speech API.',
     ],
     icon: FaHands,
-    accentColor: '#8b5cf6',
+    accentColor: '#8b7cff',
   },
   {
     id: '25',
@@ -1471,7 +1471,7 @@ export const projectsCatalog = [
       'Designing role-based permission architectures in Node.js.',
     ],
     icon: FaShoppingCart,
-    accentColor: '#3b82f6',
+    accentColor: '#34e0a1',
   },
   {
     id: '27',
@@ -1633,7 +1633,7 @@ export const projectsCatalog = [
       'Generating and verifying cryptographic QR passes in web applications.',
     ],
     icon: FaCalendarAlt,
-    accentColor: '#8b5cf6',
+    accentColor: '#8b7cff',
   },
   {
     id: '30',
@@ -1745,7 +1745,7 @@ export const projectsCatalog = [
       'Building full-stack social network data models in MongoDB.',
     ],
     icon: FaComments,
-    accentColor: '#3b82f6',
+    accentColor: '#34e0a1',
   },
   {
     id: '32',

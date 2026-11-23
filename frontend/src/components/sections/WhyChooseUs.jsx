@@ -16,7 +16,7 @@ function WhyChooseUs() {
       <div className="dm-container">
         <SectionHeading
           description="A focused ecosystem for people who are learning, shipping, and growing in technology."
-          eyebrow="Why DevMarket"
+          eyebrow="Why Repohaus"
           title="Everything you need to build and grow"
         />
         <div className="row g-4">

@@ -1,7 +1,7 @@
-export const SITE_NAME = 'DevMarket'
-export const SITE_TAGLINE = 'Discover. Create. Innovate.'
+export const SITE_NAME = 'Repohaus'
+export const SITE_TAGLINE = 'The House of Repositories'
 export const DEFAULT_DESCRIPTION =
-  'DevMarket is a marketplace for production-ready software projects and professional portfolio templates for developers, students, and technology professionals.'
+  'Repohaus is a curated marketplace for production-ready software projects and professional portfolio templates for developers, students, and technology professionals.'
 
 const envSiteUrl = (import.meta.env.VITE_SITE_URL || '').replace(/\/+$/, '')
 export const SITE_URL = envSiteUrl || (typeof window !== 'undefined' ? window.location.origin : '')

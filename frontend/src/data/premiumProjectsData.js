@@ -40,7 +40,7 @@ export const premiumProjects = [
     description:
       'A collaborative multi-agent AI system where multiple intelligent agents work together to solve complex tasks, coordinate workflows, and generate intelligent results.',
     Icon: FaNetworkWired,
-    accent: '#3b82f6',
+    accent: '#34e0a1',
     features: [
       'Multi-agent role coordination and crew orchestration',
       'LangGraph cyclical state graphs for agent reflection',
@@ -76,7 +76,7 @@ export const premiumProjects = [
     description:
       'An AI-powered knowledge management system that processes documents, extracts valuable information, and enables intelligent question answering using Retrieval-Augmented Generation.',
     Icon: FaDatabase,
-    accent: '#8b5cf6',
+    accent: '#8b7cff',
     features: [
       'Multi-format document ingestion (PDF, DOCX, TXT)',
       'High-speed document parsing using PyMuPDF',
@@ -166,7 +166,7 @@ export const premiumProjects = [
     description:
       'An intelligent financial analytics platform that analyzes financial datasets, identifies trends, generates predictive insights, and visualizes analytical results.',
     Icon: FaCoins,
-    accent: '#3b82f6',
+    accent: '#34e0a1',
     features: [
       'Time-series forecasting and volatility modeling',
       'Portfolio risk analysis and scenario simulation',

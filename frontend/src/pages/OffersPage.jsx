@@ -63,7 +63,7 @@ function OffersPage() {
   return (
     <SiteShell>
       <SEO
-        description="Explore current DevMarket promotions, discount coupons and special offers on software projects and portfolio templates."
+        description="Explore current Repohaus promotions, discount coupons and special offers on software projects and portfolio templates."
         jsonLd={breadcrumbJsonLd([{ label: 'Home', to: '/' }, { label: 'Offers', to: '/offers' }])}
         path="/offers"
         title="Offers & Promotions"
@@ -103,7 +103,7 @@ function OffersPage() {
                     </h2>
 
                     <p className="dm-muted">
-                      {offer.description || 'Special DevMarket promotion.'}
+                      {offer.description || 'Special Repohaus promotion.'}
                     </p>
 
                     <div className="dm-card p-3 mb-3">

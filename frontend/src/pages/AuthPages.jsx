@@ -177,8 +177,8 @@ function AuthPages() {
 
           <p className="dm-muted">
             {isRegister
-              ? 'Join DevMarket to explore and purchase verified projects.'
-              : 'Sign in to access your DevMarket workspace.'}
+              ? 'Join Repohaus to explore and purchase verified projects.'
+              : 'Sign in to access your Repohaus workspace.'}
           </p>
         </div>
 
@@ -313,7 +313,7 @@ function AuthPages() {
         <p className="text-center small dm-muted mt-4 mb-0">
           {isRegister
             ? 'Already have an account? '
-            : 'New to DevMarket? '}
+            : 'New to Repohaus? '}
 
           <Link
             className="text-primary fw-semibold"

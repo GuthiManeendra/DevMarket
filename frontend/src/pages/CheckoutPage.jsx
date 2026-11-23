@@ -83,7 +83,7 @@ function CheckoutPage() {
   const [customer, setCustomer] = useState({ name: '', email: '' })
 
   const productName = useMemo(
-    () => (quote?.items || []).map((item) => item.title).join(', ') || 'DevMarket Purchase',
+    () => (quote?.items || []).map((item) => item.title).join(', ') || 'Repohaus Purchase',
     [quote]
   )
 
@@ -216,7 +216,7 @@ function CheckoutPage() {
         return
       }
 
-      // Step 2: Retrieve or create DevMarket Order
+      // Step 2: Retrieve or create Repohaus Order
       let order = activeOrder
       if (!order) {
         order = await createCheckoutOrder(coupon, '', itemIds)
@@ -234,7 +234,7 @@ function CheckoutPage() {
         key: sessionData.key_id,
         amount: sessionData.amount,
         currency: sessionData.currency || 'INR',
-        name: 'DevMarket',
+        name: 'Repohaus',
         description: `Order ${sessionData.devmarket_order_number}`,
         order_id: sessionData.razorpay_order_id,
         method: razorpayMethod === 'upi' ? undefined : razorpayMethod || undefined,
@@ -454,7 +454,7 @@ function CheckoutPage() {
       <SEO noindex title="Checkout" />
       <PageHeader
         breadcrumbs={[{ label: 'Checkout' }]}
-        description="Select your preferred payment method. Amounts are calculated and verified by the DevMarket backend."
+        description="Select your preferred payment method. Amounts are calculated and verified by the Repohaus backend."
         eyebrow="Secure Razorpay Checkout"
         title="Complete your payment"
       />
@@ -478,7 +478,7 @@ function CheckoutPage() {
 
               <p className="dm-secure-note mt-3 mb-0" style={{ justifyContent: 'flex-start' }}>
                 <FaLock aria-hidden="true" size={12} />
-                Card, UPI and banking credentials are collected only inside Razorpay's secure checkout — never stored by DevMarket.
+                Card, UPI and banking credentials are collected only inside Razorpay's secure checkout — never stored by Repohaus.
               </p>
 
               {error && (

@@ -34,7 +34,7 @@ function MoneyNote({ seed }) {
         <span className="dm-money-note__value">100</span>
       </div>
       <div className="dm-money-note__footer">
-        <span className="dm-money-note__brand">DevMarket</span>
+        <span className="dm-money-note__brand">Repohaus</span>
         <div className="dm-money-note__ring" />
       </div>
     </div>
@@ -166,7 +166,7 @@ function PaymentSuccessCelebration({ transaction, viewPurchaseTo = '/projects', 
       )}
 
       <div className="dm-celebration__content">
-        {/* DevMarket Logo */}
+        {/* Repohaus Logo */}
         <div className="dm-celebration__logo">
           <div className="dm-brand-mark dm-brand-mark--large">
             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -180,7 +180,7 @@ function PaymentSuccessCelebration({ transaction, viewPurchaseTo = '/projects', 
               </defs>
             </svg>
           </div>
-          <span className="dm-celebration__logo-text">DevMarket</span>
+          <span className="dm-celebration__logo-text">Repohaus</span>
         </div>
 
         {/* Animated Checkmark */}

@@ -52,13 +52,13 @@ All secrets are stored exclusively in backend environment variables. The React f
 | Variable Name | Description | Example / Mode |
 |---|---|---|
 | `RAZORPAY_MODE` | Operating mode: `test` or `live`. Default is `test`. | `test` |
-| `RAZORPAY_KEY_ID` | Active Razorpay Key ID (Test key starts with `rzp_test_`). | `rzp_test_xxxxxxxxxxxxxx` |
+| `RAZORPAY_KEY_ID` | Active Razorpay Key ID (Test key starts with `rzp_test_`). | `rzp_test_REDACTED` |
 | `RAZORPAY_KEY_SECRET` | Active Razorpay Key Secret. Kept confidential. | `xxxxxxxxxxxxxxxxxxxxxxxx` |
 | `RAZORPAY_WEBHOOK_SECRET` | Secret configured in Razorpay Dashboard for webhook HMAC-SHA256. | `whsec_xxxxxxxxxxxxxxxxx` |
-| `RAZORPAY_TEST_KEY_ID` | Explicit Test Key ID. | `rzp_test_xxxxxxxxxxxxxx` |
+| `RAZORPAY_TEST_KEY_ID` | Explicit Test Key ID. | `rzp_test_REDACTED` |
 | `RAZORPAY_TEST_KEY_SECRET` | Explicit Test Key Secret. | `xxxxxxxxxxxxxxxxxxxxxxxx` |
 | `RAZORPAY_TEST_WEBHOOK_SECRET` | Explicit Test Webhook Secret. | `whsec_test_xxxxxxxxxxxx` |
-| `RAZORPAY_LIVE_KEY_ID` | Production Live Key ID (Starts with `rzp_live_`). | `rzp_live_xxxxxxxxxxxxxx` |
+| `RAZORPAY_LIVE_KEY_ID` | Production Live Key ID (Starts with `rzp_live_`). | `rzp_live_REDACTED` |
 | `RAZORPAY_LIVE_KEY_SECRET` | Production Live Key Secret. | `xxxxxxxxxxxxxxxxxxxxxxxx` |
 | `RAZORPAY_LIVE_WEBHOOK_SECRET` | Production Live Webhook Secret. | `whsec_live_xxxxxxxxxxxx` |
 
@@ -157,7 +157,7 @@ Example:
 - **Response** (`201 Created`):
   ```json
   {
-    "key_id": "rzp_test_YourKeyId",
+    "key_id": "rzp_test_REDACTED",
     "razorpay_order_id": "order_PVB1234567890",
     "amount": 802500,
     "currency": "INR",
@@ -311,7 +311,7 @@ Follow this checklist before processing live money:
 2. **Environment Variables**:
    ```env
    RAZORPAY_MODE=live
-   RAZORPAY_LIVE_KEY_ID=rzp_live_xxxxxxxxxxxxxx
+   RAZORPAY_LIVE_KEY_ID=rzp_live_REDACTED
    RAZORPAY_LIVE_KEY_SECRET=your_live_key_secret
    RAZORPAY_LIVE_WEBHOOK_SECRET=your_live_webhook_secret
    ```

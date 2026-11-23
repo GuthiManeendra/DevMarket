@@ -17,7 +17,7 @@ function Home() {
   return (
     <SiteShell>
       <SEO
-        description="Browse production-ready software projects and professional portfolio templates. Buy verified code projects and developer portfolio templates with secure checkout on DevMarket."
+        description="Browse production-ready software projects and professional portfolio templates. Buy verified code projects and developer portfolio templates with secure checkout on Repohaus."
         jsonLd={[organizationJsonLd(), websiteJsonLd()]}
         path="/"
         title="Marketplace for Developer Projects & Portfolio Templates"

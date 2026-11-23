@@ -26,7 +26,7 @@ function PhaseTwoPreview() {
                 <div className="dm-eyebrow mt-5">Phase 2 design system</div>
                 <h1 className="mt-3">Build boldly. <span className="dm-gradient-text">Ship beautifully.</span></h1>
                 <p className="lead mt-4">
-                  DevMarket is a premium home for developer projects and digital portfolios.
+                  Repohaus is a premium home for developer projects and digital portfolios.
                   This screen previews the brand foundation before marketplace pages are built.
                 </p>
                 <div className="d-flex flex-wrap gap-3 mt-4">

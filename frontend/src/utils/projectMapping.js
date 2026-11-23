@@ -35,7 +35,7 @@ export function projectToCard(project) {
     architectureDescription: project.architecture_description || '',
     liveDemoUrl: project.live_demo_url || '',
     demoVideoUrl: project.demo_video_url || '',
-    accentColor: '#3b82f6',
+    accentColor: '#34e0a1',
     _api: project,
   }
 }

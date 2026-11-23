@@ -1,5 +1,5 @@
 const questions = [
-  ['What is DevMarket?', 'DevMarket is a digital marketplace planned for developer projects, portfolios, and related support services.'],
+  ['What is Repohaus?', 'Repohaus is a digital marketplace planned for developer projects, portfolios, and related support services.'],
   ['What types of projects are available?', 'The planned marketplace will cover academic, AI, machine learning, Python, Java, full stack, data science, cybersecurity, IoT, and cloud projects.'],
   ['Can I preview projects before purchasing?', 'Yes. Product previews are part of the planned marketplace experience.'],
   ['What files are included with a project?', 'The exact files and documentation will be listed on each product detail page and may vary by product.'],
