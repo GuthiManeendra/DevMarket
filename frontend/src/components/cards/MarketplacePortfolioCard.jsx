@@ -10,6 +10,7 @@ import {
   WishlistButton,
 } from '../common/ProductTools'
 import { SecondaryButton } from '../common/Buttons'
+import { toast } from '../../utils/toastBus'
 import { useFlyingCartAnimation } from '../../hooks/useFlyingCartAnimation'
 import { ScrollReveal } from '../animations/ScrollReveal'
 
@@ -64,7 +65,7 @@ function MarketplacePortfolioCard({ item }) {
       })
     } catch (error) {
       console.error('Failed to add to cart:', error)
-      alert('Failed to add to cart. Please try again.')
+      toast('Failed to add to cart. Please try again.', 'error')
     } finally {
       // Delay state reset to allow animation to complete
       setTimeout(() => {
@@ -82,8 +83,8 @@ function MarketplacePortfolioCard({ item }) {
 
     // Draw gradient background
     const gradient = ctx.createLinearGradient(0, 0, 100, 100)
-    gradient.addColorStop(0, '#3b82f6')
-    gradient.addColorStop(1, '#8b5cf6')
+    gradient.addColorStop(0, '#34e0a1')
+    gradient.addColorStop(1, '#8b7cff')
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, 100, 100)
 

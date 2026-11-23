@@ -12,6 +12,7 @@ import {
   FaTools,
   FaListUl,
 } from 'react-icons/fa'
+import { toast } from '../utils/toastBus'
 import { Breadcrumb } from '../components/common/PageHeader'
 import { EmptyState, PriceDisplay } from '../components/common/Feedback'
 import { PrimaryButton, SecondaryButton } from '../components/common/Buttons'
@@ -137,7 +138,7 @@ function ProjectDetailsPage() {
       canvas.height = 80
 
       // Draw background with accent color
-      const accentColor = project.accentColor || '#3b82f6'
+      const accentColor = project.accentColor || '#34e0a1'
       ctx.fillStyle = accentColor + '33'
       ctx.beginPath()
       ctx.arc(40, 40, 38, 0, Math.PI * 2)
@@ -163,7 +164,7 @@ function ProjectDetailsPage() {
       })
     } catch (error) {
       console.error('Failed to add to cart:', error)
-      alert('Failed to add to cart. Please try again.')
+      toast('Failed to add to cart. Please try again.', 'error')
     } finally {
       // Delay state reset to allow animation to complete
       setTimeout(() => {
@@ -221,7 +222,7 @@ function ProjectDetailsPage() {
     documentationDescription,
     architectureDescription,
     liveDemoUrl,
-    accentColor = '#3b82f6',
+    accentColor = '#34e0a1',
     price,
     compareAtPrice,
     discountPercentage = 0,

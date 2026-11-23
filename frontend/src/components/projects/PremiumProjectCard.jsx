@@ -10,6 +10,7 @@ import { formatInr } from '../../utils/currency'
 import useMarketplace from '../../context/useMarketplace'
 import { useFlyingCartAnimation } from '../../hooks/useFlyingCartAnimation'
 import { ScrollReveal } from '../animations/ScrollReveal'
+import { toast } from '../../utils/toastBus'
 
 function PremiumProjectCard({ project, index, onBuyNow }) {
   const { addToCart } = useMarketplace()
@@ -28,7 +29,7 @@ function PremiumProjectCard({ project, index, onBuyNow }) {
     technologies = [],
     icon: ProjectIcon,
     Icon,
-    accentColor = '#3b82f6',
+    accentColor = '#34e0a1',
     slug,
     price,
     compareAtPrice,
@@ -114,7 +115,7 @@ function PremiumProjectCard({ project, index, onBuyNow }) {
       })
     } catch (error) {
       console.error('Failed to add to cart:', error)
-      alert('Failed to add to cart. Please try again.')
+      toast('Failed to add to cart. Please try again.', 'error')
     } finally {
       // Delay state reset to allow animation to complete
       setTimeout(() => {

@@ -1,8 +1,8 @@
 .dm-shell {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 90% 0%, rgba(59, 130, 246, 0.12), transparent 30rem),
-    radial-gradient(circle at 10% 40%, rgba(139, 92, 246, 0.08), transparent 32rem),
+    radial-gradient(circle at 90% 0%, rgba(52, 224, 161, 0.12), transparent 30rem),
+    radial-gradient(circle at 10% 40%, rgba(139, 124, 255, 0.08), transparent 32rem),
     var(--dm-bg-base);
   color: var(--dm-ink);
 }
@@ -82,12 +82,12 @@
 .dm-btn--primary {
   background: var(--dm-gradient);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0.5rem 1.25rem rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0.5rem 1.25rem rgba(52, 224, 161, 0.3);
   color: var(--dm-white);
 }
 
 .dm-btn--primary:hover {
-  box-shadow: 0 0.75rem 1.75rem rgba(59, 130, 246, 0.45);
+  box-shadow: 0 0.75rem 1.75rem rgba(52, 224, 161, 0.45);
   color: var(--dm-white);
 }
 
@@ -99,7 +99,7 @@
 
 .dm-btn--secondary:hover {
   background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(59, 130, 246, 0.5);
+  border-color: rgba(52, 224, 161, 0.5);
   color: var(--dm-white);
 }
 
@@ -114,8 +114,8 @@
 }
 
 .dm-btn--icon:hover {
-  background: rgba(59, 130, 246, 0.2);
-  border-color: rgba(59, 130, 246, 0.4);
+  background: rgba(52, 224, 161, 0.2);
+  border-color: rgba(52, 224, 161, 0.4);
   color: var(--dm-cyan);
 }
 
@@ -123,7 +123,7 @@
   background:
     linear-gradient(120deg, rgba(8, 13, 27, 0.96), rgba(13, 20, 40, 0.94)),
     radial-gradient(circle at 100% 0%, rgba(34, 211, 238, 0.4), transparent 30rem);
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  border: 1px solid rgba(139, 124, 255, 0.3);
   border-radius: var(--dm-radius-lg);
   box-shadow: var(--dm-shadow-lg);
   color: var(--dm-white);
@@ -225,8 +225,8 @@
 }
 
 .dm-card:hover {
-  border-color: rgba(59, 130, 246, 0.35);
-  box-shadow: var(--dm-shadow-lg), 0 0 15px rgba(59, 130, 246, 0.12);
+  border-color: rgba(52, 224, 161, 0.35);
+  box-shadow: var(--dm-shadow-lg), 0 0 15px rgba(52, 224, 161, 0.12);
 }
 
 .dm-token-card {
@@ -276,8 +276,8 @@
 }
 
 .dm-badge {
-  background: rgba(59, 130, 246, 0.14);
-  border: 1px solid rgba(59, 130, 246, 0.28);
+  background: rgba(52, 224, 161, 0.14);
+  border: 1px solid rgba(52, 224, 161, 0.28);
   border-radius: var(--dm-radius-pill);
   color: #60a5fa;
   display: inline-flex;

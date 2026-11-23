@@ -366,10 +366,10 @@
    ============================================ */
 @keyframes dm-pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 5px rgba(52, 224, 161, 0.3);
   }
   50% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 20px rgba(52, 224, 161, 0.6);
   }
 }
 

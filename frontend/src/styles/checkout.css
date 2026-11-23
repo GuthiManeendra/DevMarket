@@ -67,7 +67,7 @@
 .dm-checkout__title-icon {
   align-items: center;
   background: var(--dm-gradient-soft);
-  border: 1px solid rgba(59, 130, 246, 0.35);
+  border: 1px solid rgba(52, 224, 161, 0.35);
   border-radius: var(--dm-radius-sm);
   color: var(--dm-cyan);
   display: inline-flex;
@@ -262,7 +262,7 @@
 
 .dm-order-item__thumb {
   align-items: center;
-  background: linear-gradient(140deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.15));
+  background: linear-gradient(140deg, rgba(16, 185, 129, 0.2), rgba(52, 224, 161, 0.15));
   border: 1px solid var(--dm-border-subtle);
   border-radius: var(--dm-radius-sm);
   color: #6ee7b7;
@@ -373,11 +373,11 @@
 
 .dm-pay-now {
   align-items: center;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6 60%, #10b981);
+  background: linear-gradient(135deg, #34e0a1, #8b7cff 60%, #10b981);
   background-size: 200% 200%;
   border: 0;
   border-radius: var(--dm-radius-md);
-  box-shadow: 0 0.6rem 1.8rem rgba(59, 130, 246, 0.35), 0 0 0 1px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0.6rem 1.8rem rgba(52, 224, 161, 0.35), 0 0 0 1px rgba(52, 224, 161, 0.2);
   color: #f0f9ff;
   display: flex;
   font-family: "Space Grotesk", sans-serif;
@@ -393,13 +393,13 @@
 
 .dm-pay-now:hover:not(:disabled) {
   background-position: 100% 50%;
-  box-shadow: 0 0.8rem 2.2rem rgba(59, 130, 246, 0.45), 0 0 0 1px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0.8rem 2.2rem rgba(52, 224, 161, 0.45), 0 0 0 1px rgba(139, 124, 255, 0.4);
   transform: translateY(-2px);
 }
 
 .dm-pay-now:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: 0 0.4rem 1.2rem rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0.4rem 1.2rem rgba(52, 224, 161, 0.4);
 }
 
 .dm-pay-now:disabled {
@@ -465,13 +465,13 @@
 
 .dm-processing-card {
   background: linear-gradient(160deg, rgba(22, 34, 61, 0.85), rgba(12, 18, 34, 0.92));
-  border: 1px solid rgba(59, 130, 246, 0.4);
+  border: 1px solid rgba(52, 224, 161, 0.4);
   border-radius: var(--dm-radius-lg);
   padding: 2.5rem 2rem;
   text-align: center;
   max-width: 420px;
   width: 90%;
-  box-shadow: 0 0 3rem rgba(59, 130, 246, 0.25);
+  box-shadow: 0 0 3rem rgba(52, 224, 161, 0.25);
 }
 
 .dm-processing-spinner {
@@ -484,7 +484,7 @@
 .dm-processing-spinner::before {
   position: absolute;
   inset: 0;
-  border: 3px solid rgba(59, 130, 246, 0.15);
+  border: 3px solid rgba(52, 224, 161, 0.15);
   border-radius: 50%;
   content: "";
 }
@@ -493,7 +493,7 @@
   position: absolute;
   inset: 0;
   border: 3px solid transparent;
-  border-top-color: #3b82f6;
+  border-top-color: #34e0a1;
   border-radius: 50%;
   animation: dm-spin 0.8s linear infinite;
   content: "";
@@ -620,8 +620,8 @@
   background:
     radial-gradient(70rem 40rem at 50% -20%, rgba(16, 185, 129, 0.18), transparent 55%),
     radial-gradient(60rem 36rem at 50% 120%, rgba(245, 197, 66, 0.12), transparent 55%),
-    radial-gradient(50rem 30rem at 20% 80%, rgba(139, 92, 246, 0.08), transparent 45%),
-    radial-gradient(50rem 30rem at 80% 80%, rgba(59, 130, 246, 0.08), transparent 45%),
+    radial-gradient(50rem 30rem at 20% 80%, rgba(139, 124, 255, 0.08), transparent 45%),
+    radial-gradient(50rem 30rem at 80% 80%, rgba(52, 224, 161, 0.08), transparent 45%),
     #050a14;
   bottom: 0;
   inset-inline: 0;
@@ -873,8 +873,8 @@
 }
 
 .dm-btn--primary {
-  background: linear-gradient(135deg, #8b5cf6, #6366f1, #3b82f6);
-  border: 1px solid rgba(139, 92, 246, 0.4);
+  background: linear-gradient(135deg, #8b7cff, #6366f1, #34e0a1);
+  border: 1px solid rgba(139, 124, 255, 0.4);
   color: #ffffff;
   box-shadow: 0 0.5rem 1.5rem rgba(99, 102, 241, 0.4);
 }

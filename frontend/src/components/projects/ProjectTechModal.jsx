@@ -33,7 +33,7 @@ function ProjectTechModal({ project, onClose }) {
     frontendArchitecture,
     backendArchitecture,
     databaseInfo,
-    accentColor = '#3b82f6',
+    accentColor = '#34e0a1',
   } = project
 
   return (
@@ -59,7 +59,7 @@ function ProjectTechModal({ project, onClose }) {
         <div
           className="dm-modal-header-glow"
           style={{
-            background: `linear-gradient(90deg, ${accentColor}, #22d3ee, #8b5cf6)`,
+            background: `linear-gradient(90deg, ${accentColor}, #22d3ee, #8b7cff)`,
           }}
         />
 
