@@ -1,5 +1,23 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { subscribeToast } from '../../utils/toastBus'
+
+export function ToastHost({ position = 'top-right' }) {
+  const [toasts, setToasts] = useState([])
+
+  useEffect(() => subscribeToast(({ id, message, type }) => {
+    setToasts((current) => [...current, { id, message, type }])
+  }), [])
+
+  const dismiss = (id) => setToasts((current) => current.filter((t) => t.id !== id))
+
+  return (
+    <ToastContainer
+      position={position}
+      toasts={toasts.map((t) => ({ ...t, onClose: () => dismiss(t.id) }))}
+    />
+  )
+}
 
 /**
  * Toast notification with animations
@@ -35,7 +53,7 @@ export function Toast({
     success: { backgroundColor: '#10b981' },
     error: { backgroundColor: '#ef4444' },
     warning: { backgroundColor: '#f59e0b' },
-    info: { backgroundColor: '#3b82f6' },
+    info: { backgroundColor: '#34e0a1' },
   }
 
   const toastVariants = {

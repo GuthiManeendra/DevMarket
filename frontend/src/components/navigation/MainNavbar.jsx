@@ -4,7 +4,9 @@ import { motion } from 'framer-motion'
 import BrandLogo from '../common/BrandLogo'
 import { PrimaryButton } from '../common/Buttons'
 import useMarketplace from '../../context/useMarketplace'
-import { useRef, useEffect } from 'react'
+import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from '../../utils/toastBus'
 
 const navigationItems = [
   { label: 'Home', to: '/' },
@@ -17,8 +19,18 @@ const navigationItems = [
 ]
 
 function MainNavbar() {
-  const { user, logout, cart } = useMarketplace()
+  const { user, logout, cart, wishlist } = useMarketplace()
   const cartIconRef = useRef(null)
+  const navigate = useNavigate()
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault()
+    const q = searchQuery.trim()
+    setSearchOpen(false)
+    navigate(q ? `/projects?q=${encodeURIComponent(q)}` : '/projects')
+  }
 
   return (
     <header className="dm-navbar">
@@ -51,25 +63,43 @@ function MainNavbar() {
                 </motion.div>
               ))}
               <div className="d-flex align-items-center gap-1">
+                {searchOpen ? (
+                  <form className="dm-navbar-search" onSubmit={handleSearchSubmit} role="search">
+                    <FaSearch aria-hidden="true" />
+                    <input
+                      aria-label="Search projects"
+                      autoFocus
+                      onChange={(event) => setSearchQuery(event.target.value)}
+                      placeholder="Search projects..."
+                      value={searchQuery}
+                    />
+                  </form>
+                ) : (
+                  <motion.button
+                    aria-label="Search projects"
+                    className="dm-btn dm-btn--icon"
+                    onClick={() => setSearchOpen(true)}
+                    type="button"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <FaSearch aria-hidden="true" />
+                  </motion.button>
+                )}
                 <motion.button
-                  aria-label="Search"
-                  className="dm-btn dm-btn--icon"
-                  type="button"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <FaSearch aria-hidden="true" />
-                </motion.button>
-                <motion.button
-                  aria-label="Wishlist (local preview)"
-                  className="dm-btn dm-btn--icon"
+                  aria-label={`Wishlist — ${wishlist.length} item(s), stored locally in this browser`}
+                  className="dm-btn dm-btn--icon position-relative"
+                  onClick={() => toast('Your wishlist is saved locally in this browser only.', 'info')}
                   type="button"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.15 }}
                 >
                   <FaHeart aria-hidden="true" />
+                  {wishlist.length > 0 && (
+                    <span className="dm-cart-badge">{wishlist.length}</span>
+                  )}
                 </motion.button>
                 <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} transition={{ duration: 0.15 }}>
                   <Link aria-label="Cart" className="dm-btn dm-btn--icon position-relative" to="/cart" ref={cartIconRef}>

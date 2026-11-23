@@ -1,0 +1,235 @@
+/* ============================================================
+   Repohaus page polish — shared premium layer
+   ============================================================ */
+
+/* Page headers: gradient band + mint eyebrow */
+.dm-page-header {
+  background:
+    radial-gradient(40rem 18rem at 15% 0%, rgba(52, 224, 161, 0.12), transparent 60%),
+    radial-gradient(30rem 16rem at 85% 100%, rgba(139, 124, 255, 0.1), transparent 60%),
+    linear-gradient(180deg, var(--dm-bg-surface-elevated), var(--dm-bg-base));
+  border-bottom: 1px solid var(--dm-border-subtle);
+  padding-block: clamp(3rem, 7vw, 5rem) clamp(2rem, 5vw, 3.5rem);
+  position: relative;
+}
+.dm-page-header::after {
+  background: linear-gradient(90deg, var(--dm-mint), var(--dm-violet), transparent);
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 0;
+  opacity: 0.5;
+  position: absolute;
+  right: 0;
+}
+.dm-page-header h1 {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  letter-spacing: -0.05em;
+}
+.dm-page-header .dm-eyebrow {
+  color: var(--dm-mint);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.dm-page-header p { max-width: 44rem; }
+
+/* Cards: glass surface + mint edge glow on hover */
+.dm-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(160deg, rgba(26, 36, 56, 0.85), rgba(13, 20, 32, 0.9));
+  border: 1px solid var(--dm-border-subtle);
+  border-radius: var(--dm-radius-lg);
+  transition: transform var(--dm-transition), border-color var(--dm-transition), box-shadow var(--dm-transition);
+}
+.dm-card:hover {
+  border-color: rgba(52, 224, 161, 0.35);
+  box-shadow: var(--dm-shadow-lg), 0 0 2rem rgba(52, 224, 161, 0.12);
+  transform: translateY(-4px);
+}
+
+/* Inputs: mint focus ring + soft surface */
+.dm-input {
+  background: rgba(13, 20, 32, 0.7);
+  border: 1px solid var(--dm-border);
+  border-radius: var(--dm-radius-md);
+  color: var(--dm-ink);
+  transition: border-color var(--dm-transition), box-shadow var(--dm-transition), background var(--dm-transition);
+}
+.dm-input:focus {
+  background: rgba(13, 20, 32, 0.95);
+  border-color: rgba(52, 224, 161, 0.6);
+  box-shadow: 0 0 0 3px rgba(52, 224, 161, 0.15);
+  outline: none;
+}
+.dm-input::placeholder { color: var(--dm-muted); }
+select.dm-input option { background: var(--dm-bg-surface); color: var(--dm-ink); }
+
+/* Filter sidebar: glass panel */
+.dm-filter-sidebar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(170deg, rgba(26, 36, 56, 0.7), rgba(13, 20, 32, 0.85));
+  border: 1px solid var(--dm-border-subtle);
+  border-radius: var(--dm-radius-lg);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  position: sticky;
+  top: 6rem;
+}
+.dm-category-nav-link {
+  border-radius: var(--dm-radius-sm);
+  color: var(--dm-ink-soft);
+  padding: 0.45rem 0.6rem;
+  transition: background var(--dm-transition), color var(--dm-transition);
+}
+.dm-category-nav-link:hover { background: rgba(52, 224, 161, 0.08); color: var(--dm-white); }
+.dm-category-nav-link.active {
+  background: rgba(52, 224, 161, 0.14);
+  color: var(--dm-mint);
+  font-weight: 600;
+}
+
+/* Search bar: mint icon + glass */
+.dm-search-bar {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(13, 20, 32, 0.75);
+  border: 1px solid rgba(52, 224, 161, 0.25);
+  border-radius: var(--dm-radius-pill);
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.35), 0 0 1.5rem rgba(52, 224, 161, 0.08);
+}
+.dm-search-bar:focus-within { border-color: rgba(52, 224, 161, 0.6); }
+
+/* Detail hero + purchase card: gradient border glow */
+.dm-detail-hero-card,
+.dm-purchase-card {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(160deg, rgba(26, 36, 56, 0.85), rgba(13, 20, 32, 0.92));
+  border: 1px solid var(--dm-border-subtle);
+  border-radius: var(--dm-radius-lg);
+  box-shadow: var(--dm-shadow-lg);
+  position: relative;
+}
+.dm-detail-hero-card::before,
+.dm-purchase-card::before {
+  background: linear-gradient(120deg, var(--dm-mint), var(--dm-violet));
+  border-radius: inherit;
+  content: "";
+  inset: -1px;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  pointer-events: none;
+  position: absolute;
+}
+.dm-detail-visual,
+.dm-gallery-main {
+  background:
+    radial-gradient(20rem 12rem at 80% 10%, rgba(52, 224, 161, 0.18), transparent 60%),
+    radial-gradient(18rem 12rem at 15% 90%, rgba(139, 124, 255, 0.18), transparent 60%),
+    linear-gradient(145deg, #0d1428, #1b1440);
+}
+.dm-detail-visual__icon { color: var(--dm-mint); }
+.dm-gallery-main__word {
+  background: linear-gradient(110deg, #fff, var(--dm-mint));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Auth pages: glass card + mint glow */
+.dm-auth-page {
+  background:
+    radial-gradient(36rem 20rem at 15% 10%, rgba(52, 224, 161, 0.14), transparent 60%),
+    radial-gradient(30rem 18rem at 85% 90%, rgba(139, 124, 255, 0.14), transparent 60%),
+    var(--dm-bg-base);
+}
+.dm-auth-card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(165deg, rgba(26, 36, 56, 0.8), rgba(13, 20, 32, 0.92));
+  border: 1px solid rgba(52, 224, 161, 0.2);
+  box-shadow: var(--dm-shadow-lg), 0 0 3rem rgba(52, 224, 161, 0.1);
+}
+.dm-auth-icon {
+  background: var(--dm-gradient);
+  color: #0b0f14;
+}
+
+/* Checkout + order cards: glass summary panels */
+.dm-checkout__main,
+.dm-order-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.dm-order-card {
+  background: linear-gradient(165deg, rgba(26, 36, 56, 0.85), rgba(13, 20, 32, 0.92));
+  border: 1px solid var(--dm-border-subtle);
+  border-radius: var(--dm-radius-lg);
+}
+.dm-order-item__thumb {
+  background: var(--dm-gradient-soft);
+  border: 1px solid rgba(52, 224, 161, 0.25);
+}
+
+/* Buttons: consistent mint primary */
+.dm-btn--primary {
+  background: var(--dm-gradient);
+  border: 0;
+  box-shadow: 0 0.5rem 1.5rem rgba(52, 224, 161, 0.25);
+}
+.dm-btn--primary:hover {
+  box-shadow: 0 0.75rem 2rem rgba(52, 224, 161, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Notes: mint iconography */
+.dm-inline-note svg,
+.dm-purchase-note svg,
+.dm-filter-note svg { color: var(--dm-mint); }
+
+/* Section headings inside pages */
+.dm-section-heading h2 { letter-spacing: -0.04em; }
+.dm-eyebrow { color: var(--dm-mint); letter-spacing: 0.14em; }
+
+/* Reusable confirmation dialog */
+.dm-confirm-overlay {
+  align-items: center;
+  background: rgba(4, 8, 14, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 1rem;
+  position: fixed;
+  z-index: 2000;
+}
+.dm-confirm-dialog {
+  max-width: 26rem;
+  padding: clamp(1.5rem, 4vw, 2rem);
+  width: 100%;
+}
+
+/* Navbar inline search */
+.dm-navbar-search {
+  align-items: center;
+  background: rgba(13, 20, 32, 0.85);
+  border: 1px solid rgba(52, 224, 161, 0.35);
+  border-radius: var(--dm-radius-pill);
+  color: var(--dm-mint);
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+}
+.dm-navbar-search input {
+  background: transparent;
+  border: 0;
+  color: var(--dm-ink);
+  font-size: 0.85rem;
+  min-width: 9rem;
+  outline: none;
+}
+.dm-navbar-search input::placeholder { color: var(--dm-muted); }

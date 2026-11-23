@@ -5,6 +5,7 @@ import { clearCart, fetchCart, removeCartItem } from '../services/projectService
 import { EmptyState, PriceDisplay } from '../components/common/Feedback'
 import { PageHeader } from '../components/common/PageHeader'
 import { PrimaryButton } from '../components/common/Buttons'
+import ConfirmDialog from '../components/common/ConfirmDialog'
 import SiteShell from '../layouts/SiteShell'
 import SEO from '../components/seo/SEO'
 
@@ -13,6 +14,7 @@ function CartPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [removing, setRemoving] = useState(null)
+  const [confirmClear, setConfirmClear] = useState(false)
 
   useEffect(() => {
     fetchCart()
@@ -37,9 +39,8 @@ function CartPage() {
   }
 
   const handleClearCart = async () => {
-    if (window.confirm('Are you sure you want to clear your cart?')) {
-      await refresh(clearCart())
-    }
+    setConfirmClear(false)
+    await refresh(clearCart())
   }
 
   if (loading) {
@@ -76,6 +77,14 @@ function CartPage() {
         description="Review products and current server-calculated charges before checkout."
         eyebrow="Your workspace"
         title="Shopping cart"
+      />
+      <ConfirmDialog
+        confirmLabel="Clear cart"
+        message="This removes every item from your cart. This action cannot be undone."
+        onCancel={() => setConfirmClear(false)}
+        onConfirm={handleClearCart}
+        open={confirmClear}
+        title="Clear your cart?"
       />
       <main className="dm-section pt-4 pb-5">
         <div className="dm-container">
@@ -130,7 +139,7 @@ function CartPage() {
                 <div className="dm-cart-actions mt-4 pt-3 border-top border-secondary border-opacity-25">
                   <button
                     className="dm-text-button"
-                    onClick={handleClearCart}
+                    onClick={() => setConfirmClear(true)}
                     type="button"
                   >
                     Clear cart

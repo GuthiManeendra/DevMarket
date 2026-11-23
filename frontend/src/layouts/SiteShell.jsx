@@ -2,6 +2,7 @@ import { FaArrowUp, FaEnvelope, FaGithub, FaLinkedin, FaTwitter } from 'react-ic
 import { Link } from 'react-router-dom'
 import MainNavbar from '../components/navigation/MainNavbar'
 import BrandLogo from '../components/common/BrandLogo'
+import { ToastHost } from '../components/animations/ToastAnimation'
 
 const COPYRIGHT_YEAR = new Date().getFullYear()
 
@@ -15,8 +16,8 @@ function SiteShell({ children }) {
           <div className="row g-5">
             <div className="col-lg-4">
               <Link to="/"><BrandLogo /></Link>
-              <p className="dm-footer__intro">A considered marketplace for the next generation of developers and digital makers.</p>
-              <p className="small mb-0">Discover. Create. Innovate.</p>
+              <p className="dm-footer__intro">Repohaus — a curated marketplace for developer projects and portfolio templates.</p>
+              <p className="small mb-0">The House of Repositories.</p>
             </div>
             <div className="col-6 col-lg-2">
               <h2>Marketplace</h2>
@@ -47,7 +48,7 @@ function SiteShell({ children }) {
             </div>
           </div>
           <div className="dm-footer__bottom">
-            <span>© {COPYRIGHT_YEAR} DevMarket. All rights reserved.</span>
+            <span>© {COPYRIGHT_YEAR} Repohaus. All rights reserved.</span>
             <div className="d-flex align-items-center gap-2">
               <a aria-label="Email placeholder" className="dm-footer__social" href="mailto:hello@example.com"><FaEnvelope aria-hidden="true" /></a>
               <a aria-label="GitHub placeholder" className="dm-footer__social" href="#github"><FaGithub aria-hidden="true" /></a>
@@ -58,6 +59,7 @@ function SiteShell({ children }) {
           </div>
         </div>
       </footer>
+      <ToastHost />
     </div>
   )
 }

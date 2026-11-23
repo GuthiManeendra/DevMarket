@@ -3,18 +3,43 @@ import { useEffect, useMemo, useState } from 'react'
 
 import MarketplaceContext from './storeContext'
 import api from '../services/api'
-import { addCartItem as addToCartApi } from '../services/projectService'
+import { addCartItem as addToCartApi, fetchCart } from '../services/projectService'
+
+const WISHLIST_KEY = 'repohaus_wishlist'
 
 const AUTH_USER_KEY = 'devmarket_auth_user'
 const AUTH_TOKEN_KEY = 'devmarket_auth_token'
 
 function MarketplaceProvider({ children }) {
   const [cart, setCart] = useState([])
-  const [wishlist, setWishlist] = useState([])
+  const [wishlist, setWishlist] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem(WISHLIST_KEY)) || []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist))
+  }, [wishlist])
+
+  // Sync the navbar cart badge with the server-side cart on load.
+  useEffect(() => {
+    let active = true
+    fetchCart()
+      .then((data) => {
+        if (!active) return
+        const items = data.items || data.results || data || []
+        setCart(Array.isArray(items) ? items : [])
+      })
+      .catch(() => {})
+    return () => { active = false }
+  }, [])
   const [user, setUser] = useState(null)
   const [authLoading, setAuthLoading] = useState(true)
 
-  // Verify the saved Django token when DevMarket opens.
+  // Verify the saved Django token when Repohaus opens.
   useEffect(() => {
     let active = true
 

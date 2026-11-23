@@ -45,7 +45,7 @@ function ProjectsPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const categoryParam = searchParams.get('category') || ''
 
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState(searchParams.get('q') || '')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [sort, setSort] = useState('-created_at')
   const [difficulty, setDifficulty] = useState('')
@@ -60,6 +60,16 @@ function ProjectsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const { buyNow } = useBuyNow()
+
+  // Sync the search box when arriving via the navbar search (?q=term).
+  useEffect(() => {
+    const q = searchParams.get('q')
+    if (q !== null) {
+      setQuery(q)
+      setDebouncedQuery(q)
+      setPage(1)
+    }
+  }, [searchParams])
 
   useEffect(() => {
     const timer = setTimeout(() => {
