@@ -22,6 +22,9 @@ from apps.payments.services import (
     RAZORPAY_KEY_ID='rzp_test_mock_key',
     RAZORPAY_KEY_SECRET='mock_secret_key_123',
     RAZORPAY_WEBHOOK_SECRET='mock_webhook_secret_456',
+    RAZORPAY_TEST_KEY_ID='rzp_test_mock_key',
+    RAZORPAY_TEST_KEY_SECRET='mock_secret_key_123',
+    RAZORPAY_TEST_WEBHOOK_SECRET='mock_webhook_secret_456',
 )
 class PaymentServicesTests(TestCase):
     def setUp(self):

@@ -148,8 +148,18 @@ class PortfolioApiTests(APITestCase):
         self.assertEqual(options.data[0]['additional_price'], '500.00')
 
     def test_staff_only_writes(self):
+        # Anonymous requests are rejected at authentication (401).
+        response = self.client.post('/api/portfolios/', {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # Authenticated non-staff users are rejected by permissions (403).
+        regular = get_user_model().objects.create_user(
+            username='regular', password='password'
+        )
+        self.client.force_authenticate(user=regular)
         response = self.client.post('/api/portfolios/', {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
         user = get_user_model().objects.create_user(username='staff', password='password', is_staff=True)
         self.client.force_authenticate(user=user)
         response = self.client.post('/api/portfolios/', {}, format='json')

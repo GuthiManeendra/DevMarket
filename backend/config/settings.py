@@ -6,6 +6,8 @@ Django settings for config project.
 import os
 from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
+
 from dotenv import load_dotenv
 
 # --------------------------------------------------
@@ -43,14 +45,18 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # SECURITY SETTINGS
 # --------------------------------------------------
 
-SECRET_KEY = os.getenv(
-    'DJANGO_SECRET_KEY',
-    'django-insecure-development-only-change-me'
-)
-
 DEBUG = os.getenv(
-    'DJANGO_DEBUG', 'True'
+    'DJANGO_DEBUG', 'False'
 ).lower() in {'1', 'true', 'yes', 'on'}
+
+_SECRET_KEY_FALLBACK = 'django-insecure-local-development-only'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY') or (
+    _SECRET_KEY_FALLBACK if DEBUG else None
+)
+if not SECRET_KEY:
+    raise ImproperlyConfigured(
+        'DJANGO_SECRET_KEY must be set when DEBUG is disabled.'
+    )
 
 ALLOWED_HOSTS = [
     host.strip()
@@ -298,7 +304,9 @@ REST_FRAMEWORK = {
 # CORS CONFIGURATION
 # --------------------------------------------------
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = os.getenv(
+    'CORS_ALLOW_ALL_ORIGINS', 'False'
+).lower() in {'1', 'true', 'yes', 'on'}
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGIN_REGEXES = [

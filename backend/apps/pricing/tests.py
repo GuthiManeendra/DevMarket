@@ -94,6 +94,18 @@ class PricingApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_configuration_update_requires_staff(self):
+        # Anonymous requests are rejected at authentication (401).
+        response = self.client.post('/api/pricing/configuration/update/', {
+            'ai_minimum_price': '8000.00',
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # Authenticated non-staff users are rejected by permissions (403).
+        regular = get_user_model().objects.create_user(
+            username='regular-pricing',
+            password='password',
+        )
+        self.client.force_authenticate(user=regular)
         response = self.client.post('/api/pricing/configuration/update/', {
             'ai_minimum_price': '8000.00',
         }, format='json')

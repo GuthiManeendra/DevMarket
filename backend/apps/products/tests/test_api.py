@@ -95,6 +95,16 @@ class ProjectApiTests(APITestCase):
         self.assertEqual(len(response.data), 2)
 
     def test_public_write_is_forbidden(self):
+        # Anonymous requests are rejected at authentication (401).
+        response = self.client.post('/api/projects/', {})
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # Authenticated non-staff users are rejected by permissions (403).
+        user = get_user_model().objects.create_user(
+            username='regular-user',
+            password='strong-test-password',
+        )
+        self.client.force_authenticate(user=user)
         response = self.client.post('/api/projects/', {})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 

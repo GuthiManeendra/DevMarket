@@ -18,6 +18,9 @@ User = get_user_model()
     RAZORPAY_KEY_ID='rzp_test_api_key',
     RAZORPAY_KEY_SECRET='api_secret_key_123',
     RAZORPAY_WEBHOOK_SECRET='api_webhook_secret_456',
+    RAZORPAY_TEST_KEY_ID='rzp_test_api_key',
+    RAZORPAY_TEST_KEY_SECRET='api_secret_key_123',
+    RAZORPAY_TEST_WEBHOOK_SECRET='api_webhook_secret_456',
 )
 class PaymentAPITests(APITestCase):
     def setUp(self):
