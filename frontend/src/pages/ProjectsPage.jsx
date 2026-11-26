@@ -86,7 +86,7 @@ function ProjectsPage() {
   }, [])
 
   useEffect(() => {
-    let active = true
+    const controller = new AbortController()
     setLoading(true)
     fetchProjects({
       page,
@@ -98,21 +98,22 @@ function ProjectsPage() {
       min_price: minPrice || undefined,
       max_price: maxPrice || undefined,
       technology: technology || undefined,
-    })
+    }, controller.signal)
       .then((data) => {
-        if (!active) return
         const list = data.results || data || []
         setProjects(list.map(projectToCard))
         setPagination(data)
         setError('')
       })
       .catch(() => {
-        if (active) setError('Projects are temporarily unavailable. Please try again later.')
+        if (!controller.signal.aborted) {
+          setError('Projects are temporarily unavailable. Please try again later.')
+        }
       })
       .finally(() => {
-        if (active) setLoading(false)
+        if (!controller.signal.aborted) setLoading(false)
       })
-    return () => { active = false }
+    return () => controller.abort()
   }, [categoryParam, debouncedQuery, difficulty, maxPrice, minPrice, page, sort, technology])
 
   const handleCategorySelect = (slug) => {

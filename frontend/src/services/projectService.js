@@ -1,7 +1,7 @@
 import api from './api'
 
-export async function fetchProjects(params = {}) {
-  const response = await api.get('/projects/', { params })
+export async function fetchProjects(params = {}, signal) {
+  const response = await api.get('/projects/', { params, signal })
   return response.data
 }
 

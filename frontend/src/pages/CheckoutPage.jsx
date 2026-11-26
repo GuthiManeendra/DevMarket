@@ -70,6 +70,8 @@ function CheckoutPage() {
   )
   const buyProcessedRef = useRef(false)
   const paymentInitiatedRef = useRef(false)
+  // Mirror of paymentInitiatedRef for render — refs must not be read during render.
+  const [paymentInitiated, setPaymentInitiated] = useState(false)
 
   const [coupon, setCoupon] = useState('')
   const [quote, setQuote] = useState(null)
@@ -193,6 +195,7 @@ function CheckoutPage() {
     return () => {
       isMounted = false
       paymentInitiatedRef.current = false
+      setPaymentInitiated(false)
     }
   }, [coupon, itemIds, buyParam, itemIdsParam])
 
@@ -202,6 +205,7 @@ function CheckoutPage() {
       return
     }
     paymentInitiatedRef.current = true
+    setPaymentInitiated(true)
 
     setProcessing(true)
     setError('')
@@ -213,6 +217,8 @@ function CheckoutPage() {
       if (!isScriptLoaded || typeof window.Razorpay === 'undefined') {
         setError('Unable to load the Razorpay checkout script. Please check your internet connection.')
         setProcessing(false)
+        paymentInitiatedRef.current = false
+        setPaymentInitiated(false)
         return
       }
 
@@ -249,6 +255,8 @@ function CheckoutPage() {
           ondismiss: () => {
             setProcessing(false)
             setPaymentState('dismissed')
+            paymentInitiatedRef.current = false
+            setPaymentInitiated(false)
           },
         },
         handler: async (response) => {
@@ -309,6 +317,7 @@ function CheckoutPage() {
           } finally {
             setProcessing(false)
             paymentInitiatedRef.current = false
+            setPaymentInitiated(false)
           }
         },
       }
@@ -324,6 +333,7 @@ function CheckoutPage() {
         setPaymentState('failed')
         setProcessing(false)
         paymentInitiatedRef.current = false
+        setPaymentInitiated(false)
       })
 
       rzpInstance.open()
@@ -336,6 +346,7 @@ function CheckoutPage() {
       setProcessing(false)
       setPaymentState('failed')
       paymentInitiatedRef.current = false
+      setPaymentInitiated(false)
     }
   }
 
@@ -571,7 +582,7 @@ function CheckoutPage() {
 
                   <button
                     className={`dm-pay-now mt-3${processing ? ' dm-pay-now--loading' : ''}`}
-                    disabled={processing || paymentInitiatedRef.current || !quote.items?.length}
+                    disabled={processing || paymentInitiated || !quote.items?.length}
                     onClick={handleStartPayment}
                     type="button"
                   >
